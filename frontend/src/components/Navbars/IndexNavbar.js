@@ -173,7 +173,7 @@ function IndexNavbar() {
               </NavItem>
 
               <NavItem>
-                {/* <Link to="/user-login-page"> */}
+                <Link to="/user-onboard">
                 <NavLink
                   style={{
                     color: "black",
@@ -182,14 +182,15 @@ function IndexNavbar() {
                     fontSize: "18px",
                   }}
                   href="#pablo"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    window.open("http://localhost:3001/user-onboard");
-                  }}
+                  // onClick={(e) => {
+                  //   e.preventDefault();
+                  //   window.open("http://localhost:3001/user-onboard");
+                  // }}
                 >
                   <p>User Onboard</p>
                 </NavLink>
-                {/* </Link> */}
+
+                </Link>
               </NavItem>
 
               <NavItem>

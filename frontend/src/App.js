@@ -32,8 +32,8 @@ const getWeb3 = async () => {
     try {
       // Request account access if needed
       await window.ethereum.enable();
-      // console.log(tempWeb3);
-      //console.log(web3.eth.getAccounts());
+      console.log("temp1 ",tempWeb3);
+      // console.log(web3.eth.getAccounts());
       // Acccounts now exposed
     } catch (error) {
       // User denied account access...
@@ -42,7 +42,7 @@ const getWeb3 = async () => {
   // Legacy dapp browsers...
   else if (tempWeb3) {
     tempWeb3 = new Web3(tempWeb3.currentProvider);
-    // console.log(tempWeb3);
+    console.log("temp2",tempWeb3);
     // Acccounts always exposed
   }
   // Non-dapp browsers...
@@ -406,13 +406,13 @@ const App = () => {
 
       // saving this to states
 
-      // console.log("contract init", contract);
-      // console.log("accounts", accounts);
-      // console.log("web3", web3);
+      console.log("contract init", contract);
+      console.log("accounts", accounts);
+      console.log("web3", web3);
     };
 
     init();
-  }, []);
+  }, [web3, accounts, contract]);
 
   return (
     <BlockchainContext.Provider value={{ web3, accounts, contract }}>
@@ -427,6 +427,8 @@ const App = () => {
           path="/landing-page"
           element={<LandingPage />}
         />
+
+        <Route path="/user-onboard" />
         {/* <Route
             path="/profile-page"
             render={(props) => <ProfilePage {...props} />}

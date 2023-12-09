@@ -26,6 +26,9 @@ import Examples from "./index-sections/Examples.js";
 import Download from "./index-sections/Download.js";
 
 function Index({web3, accounts, contract}) {
+  console.log("Web3 -- ", web3);
+  console.log("Accounts - ", accounts);
+  console.log("Contract - ", contract);
   React.useEffect(() => {
     document.body.classList.add("index-page");
     document.body.classList.add("sidebar-collapse");

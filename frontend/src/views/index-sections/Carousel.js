@@ -15,23 +15,23 @@ import {
 const items = [
   {
     key: 1,
-    src: `url('../../assets/img/bg1.jpg')`,
+    src: 'https://picsum.photos/200',
     altText: "Nature, United States",
     caption: "Nature, United States",
   },
-  {
-    key: 2,
-    src: `url('../../assets/img/bg3.jpg')`,
-    altText: "Somewhere Beyond, United States",
-    caption: "Somewhere Beyond, United States",
-  },
-  {
-    key: 3,
-    // src: `url('../../assets/img/bg4.jpg')`,
-    src: "C:/Users/SURFACE/Documents/decentralized-innovators/frontend/src/assets/img/bg1.jpg",
-    altText: "Yellowstone National Park, United States",
-    caption: "Yellowstone National Park, United States",
-  },
+  // {
+  //   key: 2,
+  //   src: `url('../../assets/img/bg3.jpg')`,
+  //   altText: "Somewhere Beyond, United States",
+  //   caption: "Somewhere Beyond, United States",
+  // },
+  // {
+  //   key: 3,
+  //   // src: `url('../../assets/img/bg4.jpg')`,
+  //   src: "C:/Users/SURFACE/Documents/decentralized-innovators/frontend/src/assets/img/bg1.jpg",
+  //   altText: "Yellowstone National Park, United States",
+  //   caption: "Yellowstone National Park, United States",
+  // },
 ];
 
 function CarouselSection() {
@@ -76,6 +76,7 @@ function CarouselSection() {
                   activeIndex={activeIndex}
                   onClickHandler={goToIndex}
                 />
+                
                 {items.map((item) => {
                   console.log("ITem - ", item);
                   return (
@@ -84,7 +85,7 @@ function CarouselSection() {
                       onExited={onExited}
                       key={item.key}
                     >
-                      <img src={item.src} alt={item.altText} />
+                      <img src={'https://picsum.photos/200'} alt={item.altText} />
                       <div className="carousel-caption d-none d-md-block">
                         <h5>{item.caption}</h5>
                       </div>
