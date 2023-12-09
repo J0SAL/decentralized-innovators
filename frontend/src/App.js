@@ -15,7 +15,7 @@ import TipOff from "./abis/TipOff.json";
 import BlockchainContext from "./context/BlockChainContext";
 
 import { AnonAadhaarProvider } from "anon-aadhaar-react";
-import  UserOnBoard  from "./views/UserOnBoard/UserOnBoard.js";
+import UserOnBoard from "./views/UserOnBoard/UserOnBoard.js";
 // import Map from "./views/Mao/Map-1.js";
 
 const getWeb3 = async () => {
@@ -52,7 +52,6 @@ const App = () => {
   const [web3, setWeb3] = useState(undefined);
   const [accounts, setAccounts] = useState([]);
   const [contract, setContract] = useState();
-  console.log("In app");
 
   const app_id = process.env.REACT_APP_APP_ID || "";
 
@@ -366,120 +365,111 @@ const App = () => {
     ],
   };
 
-  useEffect(() => {
-    const init = async () => {
-      // load web3
-      const tempWeb3 = await getWeb3();
-      // loadBlockchainData
-      const tempAccounts = await tempWeb3.eth.getAccounts();
-      const networkId = await tempWeb3.eth.net.getId();
+  const init = async () => {
+    // load web3
+    const tempWeb3 = await getWeb3();
+    // loadBlockchainData
+    const tempAccounts = await tempWeb3.eth.getAccounts();
+    const networkId = await tempWeb3.eth.net.getId();
 
-      let TipOffcon;
+    let TipOffcon;
 
-      const listener = (accs) => {
-        setAccounts(accs);
-      };
-
-      window.ethereum.on("accountsChanged", listener);
-
-      // console.log("tempWeb3", tempWeb3);
-      // console.log("tempWeb3", tempAccounts);
-      // console.log("networkId", networkId);
-
-      const networkdata = TipOff.networks[networkId];
-      // console.log("networkdata",networkdata);
-      if (networkdata) {
-        const abi = TipOff.abi;
-        // console.log("freelance.abi", freelance.abi);
-        TipOffcon = new tempWeb3.eth.Contract(abi, networkdata.address);
-
-        await setContract(TipOffcon);
-        await setWeb3(tempWeb3);
-        await setAccounts(tempAccounts);
-        // console.log("TipOffcon", TipOffcon);
-      }
-
-      // saving this to states
-      console.log("accounts", accounts);
-      console.log("contract - ", contract);
+    const listener = (accs) => {
+      setAccounts(accs);
     };
-    init();
-  }, [accounts, contract]);
 
+    window.ethereum.on("accountsChanged", listener);
+
+    const networkdata = TipOff.networks[networkId];
+    if (networkdata) {
+      const abi = TipOff.abi;
+      TipOffcon = new tempWeb3.eth.Contract(abi, networkdata.address);
+
+      await setContract(TipOffcon);
+      await setWeb3(tempWeb3);
+      await setAccounts(tempAccounts);
+    }
+  };
+
+  useEffect(() => {
+    init();
+  }, []);
+
+  console.log("contract address : ", contract);
+  console.log("account address: ", accounts);
+  console.log("account address: ", accounts[0]);
   return (
     <BlockchainContext.Provider value={{ web3, accounts, contract }}>
-        
-        <Routes>
-          <Route
-            path="/index"
-            element={
-              <Index web3={web3} accounts={accounts} contract={contract} />
-            }
-          />
+      <Routes>
+        <Route
+          path="/index"
+          element={
+            <Index web3={web3} accounts={accounts} contract={contract} />
+          }
+        />
 
-          {/* <Route
+        {/* <Route
             path="/nucleo-icons"
             render={(props) => <NucleoIcons {...props} />}
           /> */}
-          <Route path="/landing-page" element={<LandingPage />} />
+        <Route path="/landing-page" element={<LandingPage />} />
 
-          <Route
-            path="/user-onboard"
-            element={
-              <AnonAadhaarProvider _appId={app_id} _isWeb={false}>
-      
+        <Route
+          path="/user-onboard"
+          element={
+            <AnonAadhaarProvider _appId={app_id} _isWeb={false}>
               <UserOnBoard
                 web3={web3}
                 accounts={accounts}
                 contract={contract}
               />
-              </AnonAadhaarProvider>
-            }
-          />
+            </AnonAadhaarProvider>
+          }
+        />
 
-          {/* <Route
+        {/* <Route
             path="/profile-page"
             render={(props) => <ProfilePage {...props} />}
           /> */}
 
-          {/* <Route
+        {/* <Route
             path="/login-page"
             render={(props) => <LoginPage {...props} />}
           /> */}
 
-          {/* <Route
+        {/* <Route
             path="/govportal"
             render={(props) => <GovPortal {...props} />}
           /> */}
 
-          {/* <Route path="/mental" render={(props) => <Mental {...props} />} /> */}
-          {/* <Route path="/home" render={(props) => <Home {...props} />} /> */}
-          {/* <Route path="/form" render={(props) => <Forms {...props} />} /> */}
+        {/* <Route path="/mental" render={(props) => <Mental {...props} />} /> */}
+        {/* <Route path="/home" render={(props) => <Home {...props} />} /> */}
+        {/* <Route path="/form" render={(props) => <Forms {...props} />} /> */}
 
-          {/* <Route
+        {/* <Route
             path="/user-login-page"
             render={(props) => <UserLoginPage {...props} />}
           /> */}
 
-          {/* <Route
+        {/* <Route
             path="/crime-hotspot"
             render={(props) => <Map crimeData={crimeData} />}
           /> */}
 
-          {/* <Route
+        {/* <Route
             path="/police-login-page"
             render={(props) => <PoliceLoginPage {...props} />}
           /> */}
 
-          {/* <Route
+        {/* <Route
             path="/dashboard"
             render={(props) => <Dashboard {...props} />}
           /> */}
 
-          {/* <Route path="/placessearchbar" component={PlacesSearchBar} /> */}
+        {/* <Route path="/placessearchbar" component={PlacesSearchBar} /> */}
 
-          <Route from="/" to="/home" />
-        </Routes>
+        <Route from="/" to="/home" />
+      </Routes>
     </BlockchainContext.Provider>
   );
 };

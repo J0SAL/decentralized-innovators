@@ -11,7 +11,9 @@ function DefaultFooter() {
     <>
       <footer className="footer footer-default">
         <div className="copyright" id="copyright">
-          © {new Date().getFullYear()}<br/>Coded by Team SisGrammers.
+          © {new Date().getFullYear()}
+          <br />
+          Coded by Team Decentralized Innovators.
         </div>
       </footer>
     </>
