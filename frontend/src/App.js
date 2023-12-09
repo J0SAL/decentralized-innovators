@@ -3,6 +3,7 @@ import "./App.css";
 import { Routes, Route, Link } from "react-router-dom";
 import { AnonAadhaarProvider } from "anon-aadhaar-react";
 import Home from "./Anonaadhar";
+import UploadTipData from "./UploadTipData";
 
 const app_id = process.env.REACT_APP_APP_ID || "";
 
@@ -27,6 +28,7 @@ function App() {
       </div> */}
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/lighthouse" element={<UploadTipData />} />
       </Routes>
     </AnonAadhaarProvider>
   );
