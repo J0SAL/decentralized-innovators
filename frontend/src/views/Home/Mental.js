@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
-import IndexNavbar from "components/Navbars/IndexNavbar.js";
-import DarkFooter from "components/Footers/DarkFooter.js";
-
+import { useNavigate } from "react-router";
+import IndexNavbar from "../../components/Navbars/IndexNavbar";
+import DarkFooter from "../../components/Footers/DarkFooter";
+import IndexHeader from "../../components/Headers/IndexHeader";
 import {
   Card,
   CardHeader,
@@ -30,7 +30,7 @@ const Mental = () => {
   const [dumarr2, setDumarr2] = useState([]);
   const [dumarr3, setDumarr3] = useState([]);
   const [disparr, setDisparr] = useState([]);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     document.body.classList.add("index-page");
@@ -78,12 +78,12 @@ const Mental = () => {
   };
 
   const rightChoice = () => {
-    history.push("/form");
+    navigate("/form");
   };
 
   const wrongChoice = () => {
     setAlert(true);
-    history.push("/home");
+    navigate("/home");
   };
 
   const Optiona = (props) => (
@@ -198,7 +198,7 @@ const Mental = () => {
     <>
       <IndexNavbar />
       <div className="wrapper">
-        {/* <IndexHeader /> */}
+        <IndexHeader />
         <div className="main">
           <div className="section section-basic" id="basic-elements">
             <Container>

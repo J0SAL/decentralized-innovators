@@ -5,21 +5,23 @@ import "./assets/demo/nucleo-icons-page-styles.css?v=1.5.0";
 import "./assets/scss/now-ui-kit.scss?v=1.5.0";
 import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
+import { useNavigate } from "react-router";
 import LandingPage from "./views/examples/LandingPage.js";
 // import LoginPage from "views/examples/LoginPage.js";
 // import ProfilePage from "views/examples/ProfilePage.js";
 // import GovPortal from "views/GovPortal/GovPortal.js";
 import Forms from "./views/Home/Forms.js";
-// import Home from "views/Home/Home.js";
-// import Mental from "views/Home/Mental.js";
+import Home from "./views/Home/Home.js";
+import Mental from "./views/Home/Mental.js";
 // import Deposits from "views/Dashboard/Deposits";
 
 import Index from "./views/Index.js";
 // import NucleoIcons from "views/NucleoIcons.js";
 // import PlacesSearchBar from "views/PlacesSearchBar/PlacesSearchBar";
-import Web3 from "web3";
+import Web3, { ERR_INVALID_RESPONSE } from "web3";
 import TipOff from "./abis/TipOff.json";
 import BlockchainContext from "./context/BlockChainContext";
+import Waku from "./views/Waku/Waku.js";
 
 import { AnonAadhaarProvider } from "anon-aadhaar-react";
 import UserOnBoard from "./views/UserOnBoard/UserOnBoard.js";
@@ -60,9 +62,10 @@ const App = () => {
   const [web3, setWeb3] = useState(undefined);
   const [accounts, setAccounts] = useState([]);
   const [contract, setContract] = useState();
+  const [redirectToOnboard, setUserOnboard] = useState();
 
+  const navigate = useNavigate();
   const app_id = process.env.REACT_APP_APP_ID || "";
-
   const crimeData = {
     crime_data: [
       {
@@ -397,16 +400,30 @@ const App = () => {
       const abi = TipOff.abi;
       TipOffcon = new tempWeb3.eth.Contract(abi, networkdata.address);
 
-      await setContract(TipOffcon);
-      await setWeb3(tempWeb3);
-      await setAccounts(tempAccounts);
+      setContract(TipOffcon);
+      setWeb3(tempWeb3);
+      setAccounts(tempAccounts);
     }
   };
 
+  const checkIfuserAlreadyregistered = async () => {
+    let res = await contract?.methods
+      .checkIfAlreadyRegistered()
+      .send({ from: accounts[0] });
+    return res;
+  };
+
+  //extend thi useeffec and set state
   useEffect(() => {
-    if (accounts[0] === POLICE_ADDRESS) {
-      console.log("Police found");
-      return;
+    if (accounts.length) {
+      if (accounts[0] === POLICE_ADDRESS) {
+        console.log("Police found");
+        return;
+      } else if (checkIfuserAlreadyregistered()) {
+        navigate("/mental");
+      } else {
+        navigate("/user-onboard");
+      }
     }
   }, [accounts]);
 
@@ -445,10 +462,7 @@ const App = () => {
           }
         />
 
-        {/* <Route
-            path="/profile-page"
-            render={(props) => <ProfilePage {...props} />}
-          /> */}
+        <Route path="/chat" element={<Waku />} />
 
         {/* <Route
             path="/login-page"
@@ -460,9 +474,9 @@ const App = () => {
             render={(props) => <GovPortal {...props} />}
           /> */}
 
-        {/* <Route path="/mental" render={(props) => <Mental {...props} />} /> */}
-        {/* <Route path="/home" render={(props) => <Home {...props} />} /> */}
-        {/* <Route path="/form" render={(props) => <Forms {...props} />} /> */}
+        <Route path="/mental" element={<Mental />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/form" element={<Forms />} />
 
         {/* <Route
             path="/user-login-page"
