@@ -5,17 +5,7 @@ import "./assets/demo/nucleo-icons-page-styles.css?v=1.5.0";
 import "./assets/scss/now-ui-kit.scss?v=1.5.0";
 import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
-// import PoliceLoginPage from "views/Auth/Police/LoginPage.js";
-// import UserLoginPage from "views/Auth/User/LoginPage.js";
-// import Dashboard from "views/Dashboard/Dashboard.js";
 import LandingPage from "./views/examples/LandingPage.js";
-// import LoginPage from "views/examples/LoginPage.js";
-// import ProfilePage from "views/examples/ProfilePage.js";
-// import GovPortal from "views/GovPortal/GovPortal.js";
-// import Forms from "views/Home/Forms.js";
-// import Home from "views/Home/Home.js";
-// import Mental from "views/Home/Mental.js";
-// import Deposits from "views/Dashboard/Deposits";
 
 import Index from "./views/Index.js";
 // import NucleoIcons from "views/NucleoIcons.js";
@@ -23,7 +13,10 @@ import Index from "./views/Index.js";
 import Web3 from "web3";
 import TipOff from "./abis/TipOff.json";
 import BlockchainContext from "./context/BlockChainContext";
-import Map from "./views/Mao/Map-1.js";
+
+import { AnonAadhaarProvider } from "anon-aadhaar-react";
+import  UserOnBoard  from "./views/UserOnBoard/UserOnBoard.js";
+// import Map from "./views/Mao/Map-1.js";
 
 const getWeb3 = async () => {
   let tempWeb3 = undefined;
@@ -32,7 +25,7 @@ const getWeb3 = async () => {
     try {
       // Request account access if needed
       await window.ethereum.enable();
-      console.log("temp1 ",tempWeb3);
+      console.log("temp1 ", tempWeb3);
       // console.log(web3.eth.getAccounts());
       // Acccounts now exposed
     } catch (error) {
@@ -42,7 +35,7 @@ const getWeb3 = async () => {
   // Legacy dapp browsers...
   else if (tempWeb3) {
     tempWeb3 = new Web3(tempWeb3.currentProvider);
-    console.log("temp2",tempWeb3);
+    console.log("temp2", tempWeb3);
     // Acccounts always exposed
   }
   // Non-dapp browsers...
@@ -60,6 +53,8 @@ const App = () => {
   const [accounts, setAccounts] = useState([]);
   const [contract, setContract] = useState();
   console.log("In app");
+
+  const app_id = process.env.REACT_APP_APP_ID || "";
 
   const crimeData = {
     crime_data: [
@@ -405,70 +400,87 @@ const App = () => {
       }
 
       // saving this to states
-
-      console.log("contract init", contract);
       console.log("accounts", accounts);
-      console.log("web3", web3);
+      console.log("contract - ", contract);
     };
 
     init();
-  }, [web3, accounts, contract]);
+  }, [accounts, contract]);
 
   return (
     <BlockchainContext.Provider value={{ web3, accounts, contract }}>
-      <Routes>
-        <Route path="/index" element={ <Index web3={web3} accounts={accounts} contract={contract} />} />
+        
+        <Routes>
+          <Route
+            path="/index"
+            element={
+              <Index web3={web3} accounts={accounts} contract={contract} />
+            }
+          />
 
-        {/* <Route
+          {/* <Route
             path="/nucleo-icons"
             render={(props) => <NucleoIcons {...props} />}
           /> */}
-        <Route
-          path="/landing-page"
-          element={<LandingPage />}
-        />
+          <Route path="/landing-page" element={<LandingPage />} />
 
-        <Route path="/user-onboard" />
-        {/* <Route
+          <Route
+            path="/user-onboard"
+            element={
+              <AnonAadhaarProvider _appId={app_id} _isWeb={false}>
+      
+              <UserOnBoard
+                web3={web3}
+                accounts={accounts}
+                contract={contract}
+              />
+              </AnonAadhaarProvider>
+            }
+          />
+
+          {/* <Route
             path="/profile-page"
             render={(props) => <ProfilePage {...props} />}
-          />
-          <Route
+          /> */}
+
+          {/* <Route
             path="/login-page"
             render={(props) => <LoginPage {...props} />}
-          />
-          <Route
+          /> */}
+
+          {/* <Route
             path="/govportal"
             render={(props) => <GovPortal {...props} />}
-          />
-          <Route path="/mental" render={(props) => <Mental {...props} />} />
-          <Route path="/home" render={(props) => <Home {...props} />} />
-          <Route path="/form" render={(props) => <Forms {...props} />} />
-          <Route
+          /> */}
+
+          {/* <Route path="/mental" render={(props) => <Mental {...props} />} /> */}
+          {/* <Route path="/home" render={(props) => <Home {...props} />} /> */}
+          {/* <Route path="/form" render={(props) => <Forms {...props} />} /> */}
+
+          {/* <Route
             path="/user-login-page"
             render={(props) => <UserLoginPage {...props} />}
-          />
+          /> */}
 
-          <Route
+          {/* <Route
             path="/crime-hotspot"
             render={(props) => <Map crimeData={crimeData} />}
-          />
+          /> */}
 
-          <Route
+          {/* <Route
             path="/police-login-page"
             render={(props) => <PoliceLoginPage {...props} />}
-          />
+          /> */}
 
-          <Route
+          {/* <Route
             path="/dashboard"
             render={(props) => <Dashboard {...props} />}
-          />
+          /> */}
 
-          <Route path="/placessearchbar" component={PlacesSearchBar} />
+          {/* <Route path="/placessearchbar" component={PlacesSearchBar} /> */}
 
-          {/* <Redirect to="/index" /> 
-          <Route from="/" to="/home" /> */}
-      </Routes>
+          <Route from="/" to="/home" />
+        </Routes>
     </BlockchainContext.Provider>
   );
 };

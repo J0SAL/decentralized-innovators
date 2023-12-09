@@ -18,8 +18,8 @@ import {
 import BlockchainContext from '../../context/BlockChainContext';
 
 // core components
-import IndexNavbar from 'components/Navbars/IndexNavbar.js';
-import TransparentFooter from 'components/Footers/TransparentFooter.js';
+import IndexNavbar from '../../components/Navbars/IndexNavbar.js';
+import TransparentFooter from '../../components/Footers/TransparentFooter.js';
 
 function LoginPage() {
 	const [firstFocus, setFirstFocus] = React.useState(false);
@@ -42,7 +42,7 @@ function LoginPage() {
 		console.log('web3', web3);
 		console.log('accounts', accounts);
 		console.log('contract', contract);
-	}, []);
+	}, [accounts, contract, web3]);
 
 	return (
 		<>

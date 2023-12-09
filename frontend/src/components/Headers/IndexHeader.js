@@ -5,6 +5,8 @@ import React from "react";
 import { Container } from "reactstrap";
 // core components
 
+import bg1 from '../../assets/img/bg1.jpg'
+
 function IndexHeader() {
   let pageHeader = React.createRef();
 
@@ -32,7 +34,7 @@ function IndexHeader() {
           className="page-header-image"
           style={{
             backgroundImage:
-              "url(" + require("../../assets/img/police.jpg").default + ")",
+              `url(${bg1})`,
           }}
           ref={pageHeader}
         ></div>

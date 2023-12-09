@@ -78,7 +78,6 @@ function CarouselSection() {
                 />
                 
                 {items.map((item) => {
-                  console.log("ITem - ", item);
                   return (
                     <CarouselItem
                       onExiting={onExiting}

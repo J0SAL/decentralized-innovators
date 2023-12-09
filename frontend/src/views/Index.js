@@ -6,7 +6,6 @@ import React from "react";
 
 // core components
 import IndexNavbar from "../components/Navbars/IndexNavbar.js";
-import IndexHeader from "../components/Headers/IndexHeader.js";
 import DarkFooter from "../components/Footers/DarkFooter.js";
 
 // sections for this page
@@ -24,6 +23,7 @@ import CompleteExamples from "./index-sections/CompleteExamples.js";
 import SignUp from "./index-sections/SignUp.js";
 import Examples from "./index-sections/Examples.js";
 import Download from "./index-sections/Download.js";
+import IndexHeader from "../components/Headers/IndexHeader.js";
 
 function Index({web3, accounts, contract}) {
   console.log("Web3 -- ", web3);
@@ -45,8 +45,9 @@ function Index({web3, accounts, contract}) {
       <IndexNavbar />
       <div className="wrapper">
         <IndexHeader />
+        
         <div className="main">
-          <Images />
+          {/* <Images />
           <BasicElements />
           <Navbars />
           <Tabs />
@@ -59,7 +60,7 @@ function Index({web3, accounts, contract}) {
           <CompleteExamples />
           <SignUp />
           <Examples />
-          <Download />
+          <Download /> */}
         </div>
         <DarkFooter />
       </div>
