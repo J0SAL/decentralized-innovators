@@ -386,8 +386,6 @@ const App = () => {
     const listener = (accs) => {
       setAccounts(accs);
     };
-    init();
-  }, []);
 
     window.ethereum.on("accountsChanged", listener);
 
