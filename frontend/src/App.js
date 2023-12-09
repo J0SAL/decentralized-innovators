@@ -403,7 +403,6 @@ const App = () => {
       console.log("accounts", accounts);
       console.log("contract - ", contract);
     };
-
     init();
   }, [accounts, contract]);
 
