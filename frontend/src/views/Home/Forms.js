@@ -66,6 +66,9 @@ import DarkFooter from "../../components/Footers/DarkFooter.js";
 // sections for this page
 import Images from "../index-sections/Images.js";
 
+function Index( {web3, accounts, contract} ) {
+  
+  useContext(BlockchainContext);
 import lighthouse from "@lighthouse-web3/sdk";
 
 const defaultTheme = createTheme();
@@ -98,6 +101,7 @@ function Index() {
   const [crimeLong, setCrimeLong] = useState("");
   const [fileHash, setFileHash] = useState("");
 
+  const navigate  = useNavigate();
   const handleCrimeLocation = (lat, long) => {
     setCrimeLat(lat);
     setCrimeLong(long);
@@ -190,6 +194,8 @@ function Index() {
 
   const submitTip = async (e) => {
     try {
+      // const tipid = 1; //only till now, but after django will generate
+      console.log("Amount of token to stake=", amt);
       e.preventDefault();
       const tip = {};
       tip["crime_subcategory"] = subcat;
@@ -204,33 +210,36 @@ function Index() {
       tip["crimeLong"] = crimeLong;
       tip["imageFileHash"] = fileHash;
       // tip["walletaddresshash"] = accounts[0];
+      
       toast.loading("Submitting!", { closeOnClick: true });
-      let resp = await uploadTipDataToLightHouse(tip);
+      axios
+        .post("http://127.0.0.1:5000/detectSpam", {
+          "chunk": tipData,
+        })
+        .then(async (response) => {
+          // return response.data.ID;
+          console.log("Response -- ", response.data.Class)
+          if (response.data.Class === 2 || response.data.Class === 3) {
+            spamtext();
+            await sleep(5050);
+            navigate("/form");
+          } else {
+            let resp = await uploadTipDataToLightHouse(tip);
       console.log(resp);
-      // axios
-      //   .post("http://localhost:8000/tip_data/", {
-      //     data: JSON.stringify(tip),
-      //   })
-      //   .then(async (response) => {
-      //     // return response.data.ID;
-      //     if (response.data.message) {
-      //       spamtext();
-      //       await sleep(5050);
-      //       navigate.push("/home");
-      //     } else {
-      //       console.log("response data ID : ", response.data.ID);
-      //       await contract.methods
-      //         .tipoff(0, response.data.ID, amt, accounts[0])
-      //         .send({ from: accounts[0] })
-      //         .then(async (result) => {
-      //           // alert("Tip submitted successfully");
-      //           notify();
-      //           await sleep(5050);
-      //           navigate.push("/home");
-      //           console.log("this us the result : ", result);
-      //         });
-      //     }
-      //   });
+            // await contract.methods
+            //   .tipoff(0, response.data.Class, amt, accounts[0])
+            //   .send({ from: accounts[0] })
+            //   .then(async (result) => {
+            //     // alert("Tip submitted successfully");
+            //     notify();
+            //     await sleep(5050);
+            //     history.push("/index");
+            //     console.log("this us the result : ", result);
+            //   });
+
+            navigate("/index");
+          }
+        });
     } catch (err) {
       console.log(err);
     }

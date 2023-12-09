@@ -6,8 +6,11 @@ import os
 import re
 import openai
 from dotenv import load_dotenv
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
+CORS(app, support_credentials=True)
+
 
 load_dotenv()
 openai.api_key = os.environ.get("OPENAI_API_KEY")
@@ -17,6 +20,7 @@ prompt_crime = "Check if the given text lies in the following categories 1) Crim
 prompt_similarity = """Check if the two given texts are similiar or not. Strictly return only a json like {"similar":"yes"} if and only if the similarity percentage turns out to be greater than 70 percent else strictly return {"similar":"no"}"""
 
 @app.route('/detectSpam', methods=["POST"])
+@cross_origin(supports_credentials=True)
 def crimenotcrime():
     if request.method == 'POST':
         data = request.get_json()

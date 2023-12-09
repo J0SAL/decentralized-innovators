@@ -20,6 +20,7 @@ import Index from "./views/Index.js";
 import Web3 from "web3";
 import TipOff from "./abis/TipOff.json";
 import BlockchainContext from "./context/BlockChainContext";
+import Forms from "./views/Home/Forms.js";
 import Waku from "./views/Waku/Waku.js";
 
 import { AnonAadhaarProvider } from "anon-aadhaar-react";
@@ -61,7 +62,6 @@ const App = () => {
   const [web3, setWeb3] = useState(undefined);
   const [accounts, setAccounts] = useState([]);
   const [contract, setContract] = useState();
-
   const app_id = process.env.REACT_APP_APP_ID || "";
   console.log("app_id", app_id);
   const crimeData = {
@@ -386,6 +386,8 @@ const App = () => {
     const listener = (accs) => {
       setAccounts(accs);
     };
+    init();
+  }, []);
 
     window.ethereum.on("accountsChanged", listener);
 
