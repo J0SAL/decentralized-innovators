@@ -9,7 +9,6 @@ import LandingPage from "./views/examples/LandingPage.js";
 // import LoginPage from "views/examples/LoginPage.js";
 // import ProfilePage from "views/examples/ProfilePage.js";
 // import GovPortal from "views/GovPortal/GovPortal.js";
-import Forms from "./views/Home/Forms.js";
 // import Home from "views/Home/Home.js";
 // import Mental from "views/Home/Mental.js";
 // import Deposits from "views/Dashboard/Deposits";
@@ -63,7 +62,6 @@ const App = () => {
   const [accounts, setAccounts] = useState([]);
   const [contract, setContract] = useState();
   const app_id = process.env.REACT_APP_APP_ID || "";
-  console.log("app_id", app_id);
   const crimeData = {
     crime_data: [
       {
