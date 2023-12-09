@@ -6,6 +6,13 @@ import "./assets/scss/now-ui-kit.scss?v=1.5.0";
 import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import LandingPage from "./views/examples/LandingPage.js";
+// import LoginPage from "views/examples/LoginPage.js";
+// import ProfilePage from "views/examples/ProfilePage.js";
+// import GovPortal from "views/GovPortal/GovPortal.js";
+import Forms from "./views/Home/Forms.js";
+// import Home from "views/Home/Home.js";
+// import Mental from "views/Home/Mental.js";
+// import Deposits from "views/Dashboard/Deposits";
 
 import Index from "./views/Index.js";
 // import NucleoIcons from "views/NucleoIcons.js";
@@ -16,6 +23,7 @@ import BlockchainContext from "./context/BlockChainContext";
 import Forms from "./views/Home/Forms.js";
 import { AnonAadhaarProvider } from "anon-aadhaar-react";
 import UserOnBoard from "./views/UserOnBoard/UserOnBoard.js";
+import { POLICE_ADDRESS } from "./assets/constants/Constants.js";
 // import Map from "./views/Mao/Map-1.js";
 
 const getWeb3 = async () => {
@@ -52,7 +60,6 @@ const App = () => {
   const [web3, setWeb3] = useState(undefined);
   const [accounts, setAccounts] = useState([]);
   const [contract, setContract] = useState();
-  
   const app_id = process.env.REACT_APP_APP_ID || "";
 
   const crimeData = {
@@ -365,49 +372,60 @@ const App = () => {
     ],
   };
 
-  useEffect(() => {
-    const init = async () => {
-      // load web3
-      const tempWeb3 = await getWeb3();
-      // loadBlockchainData
-      const tempAccounts = await tempWeb3.eth.getAccounts();
-      const networkId = await tempWeb3.eth.net.getId();
+  const init = async () => {
+    // load web3
+    const tempWeb3 = await getWeb3();
+    // loadBlockchainData
+    const tempAccounts = await tempWeb3.eth.getAccounts();
+    const networkId = await tempWeb3.eth.net.getId();
 
-      let TipOffcon;
+    let TipOffcon;
 
-      const listener = (accs) => {
-        setAccounts(accs);
-      };
-
-      window.ethereum.on("accountsChanged", listener);
-
-      // console.log("tempWeb3", tempWeb3);
-      // console.log("tempWeb3", tempAccounts);
-      // console.log("networkId", networkId);
-
-      const networkdata = TipOff.networks[networkId];
-      // console.log("networkdata",networkdata);
-      if (networkdata) {
-        const abi = TipOff.abi;
-        // console.log("freelance.abi", freelance.abi);
-        TipOffcon = new tempWeb3.eth.Contract(abi, networkdata.address);
-
-        await setContract(TipOffcon);
-        await setWeb3(tempWeb3);
-        await setAccounts(tempAccounts);
-        // console.log("TipOffcon", TipOffcon);
-      }
-
-      // saving this to states
-      console.log("accounts", accounts);
-      console.log("contract - ", contract);
+    const listener = (accs) => {
+      setAccounts(accs);
     };
     init();
   }, []);
 
+    window.ethereum.on("accountsChanged", listener);
+
+    console.log("tempWeb3", tempWeb3);
+    console.log("tempWeb3", tempAccounts);
+    console.log("networkId", networkId);
+
+    const networkdata = TipOff.networks[networkId];
+    if (networkdata) {
+      const abi = TipOff.abi;
+      TipOffcon = new tempWeb3.eth.Contract(abi, networkdata.address);
+
+      await setContract(TipOffcon);
+      await setWeb3(tempWeb3);
+      await setAccounts(tempAccounts);
+    }
+  };
+
+  useEffect(() => {
+    if (accounts[0] === POLICE_ADDRESS) {
+      console.log("Police found");
+      return;
+    }
+  }, [accounts]);
+
+  useEffect(() => {
+    init();
+  }, []);
+
+  console.log("contract address : ", contract?._address);
+  console.log("account address: ", accounts[0]);
   return (
     <BlockchainContext.Provider value={{ web3, accounts, contract }}>
       <Routes>
+        <Route
+          path="/index"
+          element={
+            <Index web3={web3} accounts={accounts} contract={contract} />
+          }
+        />
         <Route
           path="/index"
           element={
@@ -451,12 +469,7 @@ const App = () => {
 
         {/* <Route path="/mental" render={(props) => <Mental {...props} />} /> */}
         {/* <Route path="/home" render={(props) => <Home {...props} />} /> */}
-        <Route
-          path="/form"
-          element={
-            <Forms web3={web3} accounts={accounts} contract={contract} />
-          }
-        />
+        {/* <Route path="/form" render={(props) => <Forms {...props} />} /> */}
 
         {/* <Route
             path="/user-login-page"

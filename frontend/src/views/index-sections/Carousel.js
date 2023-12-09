@@ -15,7 +15,7 @@ import {
 const items = [
   {
     key: 1,
-    src: 'https://picsum.photos/200',
+    src: "https://picsum.photos/200",
     altText: "Nature, United States",
     caption: "Nature, United States",
   },
@@ -76,7 +76,7 @@ function CarouselSection() {
                   activeIndex={activeIndex}
                   onClickHandler={goToIndex}
                 />
-                
+
                 {items.map((item) => {
                   return (
                     <CarouselItem
@@ -84,7 +84,10 @@ function CarouselSection() {
                       onExited={onExited}
                       key={item.key}
                     >
-                      <img src={'https://picsum.photos/200'} alt={item.altText} />
+                      <img
+                        src={"https://picsum.photos/200"}
+                        alt={item.altText}
+                      />
                       <div className="carousel-caption d-none d-md-block">
                         <h5>{item.caption}</h5>
                       </div>

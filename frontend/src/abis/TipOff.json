@@ -14685,11 +14685,21 @@
   "ast": {
     "absolutePath": "project:/contracts/TipOff.sol",
     "exportedSymbols": {
-      "EIP712Base": [93],
-      "EIP712MetaTransaction": [372],
-      "SafeMath": [742],
-      "TipOff": [1020],
-      "TipToken": [1246]
+      "EIP712Base": [
+        93
+      ],
+      "EIP712MetaTransaction": [
+        372
+      ],
+      "SafeMath": [
+        742
+      ],
+      "TipOff": [
+        1020
+      ],
+      "TipToken": [
+        1246
+      ]
     },
     "id": 1021,
     "license": "MIT",
@@ -14697,7 +14707,11 @@
     "nodes": [
       {
         "id": 744,
-        "literals": ["solidity", "0.8", ".0"],
+        "literals": [
+          "solidity",
+          "0.8",
+          ".0"
+        ],
         "nodeType": "PragmaDirective",
         "src": "33:22:4"
       },
@@ -14773,11 +14787,18 @@
             "src": "145:36:4"
           }
         ],
-        "contractDependencies": [93, 372],
+        "contractDependencies": [
+          93,
+          372
+        ],
         "contractKind": "contract",
         "fullyImplemented": true,
         "id": 1020,
-        "linearizedBaseContracts": [1020, 372, 93],
+        "linearizedBaseContracts": [
+          1020,
+          372,
+          93
+        ],
         "name": "TipOff",
         "nodeType": "ContractDefinition",
         "nodes": [
@@ -16276,7 +16297,9 @@
               "src": "1701:230:4",
               "statements": [
                 {
-                  "assignments": [880],
+                  "assignments": [
+                    880
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -16544,7 +16567,9 @@
               "src": "2077:335:4",
               "statements": [
                 {
-                  "assignments": [909],
+                  "assignments": [
+                    909
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -16717,7 +16742,9 @@
                   "src": "2142:24:4"
                 },
                 {
-                  "assignments": [922],
+                  "assignments": [
+                    922
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -17157,7 +17184,9 @@
               "src": "2482:244:4",
               "statements": [
                 {
-                  "assignments": [952],
+                  "assignments": [
+                    952
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -17544,7 +17573,9 @@
               "src": "2809:326:4",
               "statements": [
                 {
-                  "assignments": [985],
+                  "assignments": [
+                    985
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -17622,7 +17653,9 @@
                   "src": "2820:37:4"
                 },
                 {
-                  "assignments": [991],
+                  "assignments": [
+                    991
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -18136,11 +18169,21 @@
   "legacyAST": {
     "absolutePath": "project:/contracts/TipOff.sol",
     "exportedSymbols": {
-      "EIP712Base": [93],
-      "EIP712MetaTransaction": [372],
-      "SafeMath": [742],
-      "TipOff": [1020],
-      "TipToken": [1246]
+      "EIP712Base": [
+        93
+      ],
+      "EIP712MetaTransaction": [
+        372
+      ],
+      "SafeMath": [
+        742
+      ],
+      "TipOff": [
+        1020
+      ],
+      "TipToken": [
+        1246
+      ]
     },
     "id": 1021,
     "license": "MIT",
@@ -18148,7 +18191,11 @@
     "nodes": [
       {
         "id": 744,
-        "literals": ["solidity", "0.8", ".0"],
+        "literals": [
+          "solidity",
+          "0.8",
+          ".0"
+        ],
         "nodeType": "PragmaDirective",
         "src": "33:22:4"
       },
@@ -18224,11 +18271,18 @@
             "src": "145:36:4"
           }
         ],
-        "contractDependencies": [93, 372],
+        "contractDependencies": [
+          93,
+          372
+        ],
         "contractKind": "contract",
         "fullyImplemented": true,
         "id": 1020,
-        "linearizedBaseContracts": [1020, 372, 93],
+        "linearizedBaseContracts": [
+          1020,
+          372,
+          93
+        ],
         "name": "TipOff",
         "nodeType": "ContractDefinition",
         "nodes": [
@@ -19727,7 +19781,9 @@
               "src": "1701:230:4",
               "statements": [
                 {
-                  "assignments": [880],
+                  "assignments": [
+                    880
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -19995,7 +20051,9 @@
               "src": "2077:335:4",
               "statements": [
                 {
-                  "assignments": [909],
+                  "assignments": [
+                    909
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -20168,7 +20226,9 @@
                   "src": "2142:24:4"
                 },
                 {
-                  "assignments": [922],
+                  "assignments": [
+                    922
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -20608,7 +20668,9 @@
               "src": "2482:244:4",
               "statements": [
                 {
-                  "assignments": [952],
+                  "assignments": [
+                    952
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -20995,7 +21057,9 @@
               "src": "2809:326:4",
               "statements": [
                 {
-                  "assignments": [985],
+                  "assignments": [
+                    985
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -21073,7 +21137,9 @@
                   "src": "2820:37:4"
                 },
                 {
-                  "assignments": [991],
+                  "assignments": [
+                    991
+                  ],
                   "declarations": [
                     {
                       "constant": false,
