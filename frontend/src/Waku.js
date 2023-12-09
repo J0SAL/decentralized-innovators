@@ -21,7 +21,7 @@ const Waku = () => {
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
   const [encoder, setEncoder] = useState(null);
-
+  const topic = "/samay/1/message/proto";
   useEffect(() => {
     console.log("Starting Waku Node...");
     const startWakuNode = async () => {
@@ -33,7 +33,8 @@ const Waku = () => {
       console.log("Waiting for remote peer...");
       await waitForRemotePeer(wakuNode);
       console.log("Remote peer found!");
-      const contentTopic = "/samay/1/message/proto";
+      const contentTopic = topic;
+      const userAddress = "User"
       const newEncoder = createEncoder({ contentTopic });
       setEncoder(newEncoder);
       setNode(wakuNode);
@@ -60,7 +61,7 @@ const Waku = () => {
     if (wakuNode) {
       // empty the messages array
       setMessages([]);
-      const contentTopic = "/samay/1/message/proto";
+      const contentTopic = topic;
       const decoder = createDecoder(contentTopic);
       console.log("Decoder:", decoder);
       const callback = (wakuMessage) => {
@@ -101,7 +102,7 @@ const Waku = () => {
     if (node) {
       const protoMessage = ChatMessage.create({
         timestamp: Date.now(),
-        sender: "User",
+        sender: userAddress,
         message: inputMessage,
       });
       console.log("Proto Message:", protoMessage);
@@ -119,7 +120,7 @@ const Waku = () => {
       // Update state with the new message
       setMessages((prevMessages) => [
         {
-          sender: "User",
+          sender: userAddress,
           message: inputMessage,
           timestamp: Date.now(),
         },
@@ -164,7 +165,7 @@ const Waku = () => {
       <div className="chat__header">
         <Avatar />
         <div className="chat__headerInfo">
-          <h3>Room Name</h3>
+          <h3>{topic}</h3>
         </div>
 
         <div className="chat__headerRight">
@@ -187,7 +188,7 @@ const Waku = () => {
           .map((message) => (
             <p
               className={`chat__message ${
-                message.sender === "User" ? "chat__receiver" : "chat__message2"
+                message.sender === userAddress ? "chat__receiver" : "chat__message2"
               }`}
             >
               {message.message}
