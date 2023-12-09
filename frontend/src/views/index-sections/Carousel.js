@@ -77,7 +77,7 @@ function CarouselSection() {
                   onClickHandler={goToIndex}
                 />
                 {items.map((item) => {
-                  console.log("ITem - ", item);
+                  // console.log("ITem - ", item);
                   return (
                     <CarouselItem
                       onExiting={onExiting}

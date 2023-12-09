@@ -12,7 +12,7 @@ import LandingPage from "./views/examples/LandingPage.js";
 // import LoginPage from "views/examples/LoginPage.js";
 // import ProfilePage from "views/examples/ProfilePage.js";
 // import GovPortal from "views/GovPortal/GovPortal.js";
-// import Forms from "views/Home/Forms.js";
+import Forms from "./views/Home/Forms.js";
 // import Home from "views/Home/Home.js";
 // import Mental from "views/Home/Mental.js";
 // import Deposits from "views/Dashboard/Deposits";
@@ -387,16 +387,17 @@ const App = () => {
 
       window.ethereum.on("accountsChanged", listener);
 
-      // console.log("tempWeb3", tempWeb3);
-      // console.log("tempWeb3", tempAccounts);
-      // console.log("networkId", networkId);
+      console.log("tempWeb3", tempWeb3);
+      console.log("tempWeb3", tempAccounts);
+      console.log("networkId", networkId);
 
-      const networkdata = TipOff.networks[networkId];
+      const networkdata = TipOff.networks[11155111];
       // console.log("networkdata",networkdata);
       if (networkdata) {
         const abi = TipOff.abi;
         // console.log("freelance.abi", freelance.abi);
         TipOffcon = new tempWeb3.eth.Contract(abi, networkdata.address);
+        console.log("contract mine : ", TipOffcon);
 
         await setContract(TipOffcon);
         await setWeb3(tempWeb3);
@@ -406,9 +407,9 @@ const App = () => {
 
       // saving this to states
 
-      // console.log("contract init", contract);
-      // console.log("accounts", accounts);
-      // console.log("web3", web3);
+      console.log("contract init", contract);
+      console.log("accounts", accounts);
+      console.log("web3", web3);
     };
 
     init();
@@ -417,16 +418,19 @@ const App = () => {
   return (
     <BlockchainContext.Provider value={{ web3, accounts, contract }}>
       <Routes>
-        <Route path="/index" element={ <Index web3={web3} accounts={accounts} contract={contract} />} />
+        <Route
+          path="/index"
+          element={
+            <Index web3={web3} accounts={accounts} contract={contract} />
+          }
+        />
 
         {/* <Route
             path="/nucleo-icons"
             render={(props) => <NucleoIcons {...props} />}
           /> */}
-        <Route
-          path="/landing-page"
-          element={<LandingPage />}
-        />
+        <Route path="/landing-page" element={<LandingPage />} />
+        <Route path="/form" element={<Forms />} />
         {/* <Route
             path="/profile-page"
             render={(props) => <ProfilePage {...props} />}

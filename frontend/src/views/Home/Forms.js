@@ -9,7 +9,7 @@ import PlacesSearchBar from "../PlacesSearchBar/PlacesSearchBar.js";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import moment from "moment";
 
 // reactstrap components
@@ -35,9 +35,9 @@ import {
 import BlockchainContext from "../../context/BlockChainContext";
 
 // core components
-import IndexNavbar from "components/Navbars/IndexNavbar.js";
-import IndexHeader from "components/Headers/IndexHeader.js";
-import DarkFooter from "components/Footers/DarkFooter.js";
+import IndexNavbar from "../../components/Navbars/IndexNavbar.js";
+import IndexHeader from "../../components/Headers/IndexHeader.js";
+import DarkFooter from "../../components/Footers/DarkFooter.js";
 
 // sections for this page
 import Images from "../index-sections/Images.js";
@@ -55,7 +55,7 @@ function Index() {
   const [longitude, setLongitude] = useState("");
   const [date, setDate] = useState(new Date());
 
-  let history = useHistory();
+  let navigate = useNavigate();
 
   function sleep(milliseconds) {
     return new Promise((resolve) => setTimeout(resolve, milliseconds));
@@ -107,7 +107,7 @@ function Index() {
   const submitTip = async () => {
     try {
       // const tipid = 1; //only till now, but after django will generate
-      console.log("Amount of token to stake=", date);
+      console.log("Amount of token to stake=", amt);
       const tip = {};
       tip["crime_subcategory"] = subcat;
       tip["crime_description"] = tipData;
@@ -119,30 +119,31 @@ function Index() {
       tip["crime_occurrence"] = date;
       // tip["walletaddresshash"] = accounts[0];
       toast.loading("Submitting!", { closeOnClick: true });
-      axios
-        .post("http://localhost:8000/tip_data/", {
-          data: JSON.stringify(tip),
-        })
-        .then(async (response) => {
-          // return response.data.ID;
-          if (response.data.message) {
-            spamtext();
-            await sleep(5050);
-            history.push("/home");
-          } else {
-            console.log("response data ID : ", response.data.ID);
-            await contract.methods
-              .tipoff(0, response.data.ID, amt, accounts[0])
-              .send({ from: accounts[0] })
-              .then(async (result) => {
-                // alert("Tip submitted successfully");
-                notify();
-                await sleep(5050);
-                history.push("/home");
-                console.log("this us the result : ", result);
-              });
-          }
-        });
+      // axios
+      //   .post("http://localhost:8000/tip_data/", {
+      //     data: JSON.stringify(tip),
+      //   })
+      //   .then(async (response) => {
+      //     // return response.data.ID;
+      //     if (response.data.message) {
+      //       spamtext();
+      //       await sleep(5050);
+      //       navigate.push("/home");
+      //     } else {
+      //       console.log("response data ID : ", response.data.ID);
+      //       await contract.methods
+      //         .tipoff(0, response.data.ID, amt, accounts[0])
+      //         .send({ from: accounts[0] })
+      //         .then(async (result) => {
+      //           // alert("Tip submitted successfully");
+      //           notify();
+      //           await sleep(5050);
+      //           navigate.push("/home");
+      //           console.log("this us the result : ", result);
+      //         });
+      //     }
+      //   });
+      console.log("Final Tip submitted : ", tip);
     } catch (err) {
       console.log(err);
     }
