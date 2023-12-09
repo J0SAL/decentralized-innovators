@@ -21,6 +21,8 @@ import Web3 from "web3";
 import TipOff from "./abis/TipOff.json";
 import BlockchainContext from "./context/BlockChainContext";
 import Forms from "./views/Home/Forms.js";
+import Waku from "./views/Waku/Waku.js";
+
 import { AnonAadhaarProvider } from "anon-aadhaar-react";
 import UserOnBoard from "./views/UserOnBoard/UserOnBoard.js";
 import { POLICE_ADDRESS } from "./assets/constants/Constants.js";
@@ -61,7 +63,7 @@ const App = () => {
   const [accounts, setAccounts] = useState([]);
   const [contract, setContract] = useState();
   const app_id = process.env.REACT_APP_APP_ID || "";
-
+  console.log("app_id", app_id);
   const crimeData = {
     crime_data: [
       {
@@ -452,10 +454,7 @@ const App = () => {
           }
         />
 
-        {/* <Route
-            path="/profile-page"
-            render={(props) => <ProfilePage {...props} />}
-          /> */}
+        <Route path="/chat" element={<Waku />} />
 
         {/* <Route
             path="/login-page"

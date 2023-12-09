@@ -19,6 +19,8 @@
 .chat__headerInfo > h3 {
   /* margin-bottom: 3px; */
   font-weight: 500;
+  margin-bottom: 0 !important;
+  padding: 10px 15px;
 }
 
 .chat__headerRight {
@@ -31,7 +33,7 @@
   background-image: url("https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png");
   padding: 30px;
   overflow: scroll;
-  height: calc(100vh - 195px);
+  height: calc(100vh - 138px);
   display: flex;
   flex-direction: column;
 }
@@ -44,11 +46,16 @@
   border-radius: 10px;
   background-color: #ffffff;
   margin-bottom: 30px;
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
 }
 
 .chat__timestamp {
   margin-left: 10px;
-  font-size: xx-small;
+  font-weight: 400;
+  font-size: 8px;
+  align-self: flex-end;
 }
 
 .chat__name {
@@ -83,6 +90,9 @@
 .chat__receiver {
   background-color: #dcf8c6;
   align-self: flex-end;
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
 }
 
 .chat__message2 {
