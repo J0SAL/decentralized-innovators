@@ -6,10 +6,12 @@ import { Container } from "reactstrap";
 
 function DarkFooter() {
   return (
-    <footer className="footer" data-background-color="black">      
-        <div className="copyright" id="copyright">
-          © {new Date().getFullYear()}<br/>Coded by Team SisGrammers.
-        </div>
+    <footer className="footer" data-background-color="black">
+      <div className="copyright" id="copyright">
+        © {new Date().getFullYear()}
+        <br />
+        Coded by Team Decentralized Innovators.
+      </div>
     </footer>
   );
 }
