@@ -41,19 +41,23 @@ def textsimilarity():
         data = request.get_json()
         chunk1 = data["chunk1"]
         chunk2 = data["chunk2"]
-        response = openai.Completion.create(
-            engine="text-davinci-003",
-            prompt=(f"{prompt_similarity}\n{chunk1}\n{chunk2}"),
-            temperature=0.5,
-            max_tokens=1024,
-            n=1,
-            stop=None
-        )
+        count_yes = 0
+        for chunk in chunk2:
+            response = openai.Completion.create(
+                engine="text-davinci-003",
+                prompt=(f"{prompt_similarity}\n{chunk1}\n{chunk}"),
+                temperature=0.5,
+                max_tokens=1024,
+                n=1,
+                stop=None
+            )
 
-        services = response.choices[0]["text"].strip()
-        final = services.find("{")
-        services = json.loads(services[final:])
-        return ({"Class":services["similar"]})
+            services = response.choices[0]["text"].strip()
+            final = services.find("{")
+            services = json.loads(services[final:])
+            if services["similar"].lower() == "yes":
+                count_yes +=1
+        return ({"Total count":len(chunk2),"Total matches":count_yes})
 
 if __name__ == '__main__':
    app.run()
