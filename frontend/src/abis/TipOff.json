@@ -80,13 +80,7 @@
       "type": "function"
     },
     {
-      "inputs": [
-        {
-          "internalType": "string",
-          "name": "aadharhash",
-          "type": "string"
-        }
-      ],
+      "inputs": [],
       "name": "checkIfAlreadyRegistered",
       "outputs": [
         {
@@ -290,6 +284,83 @@
     {
       "inputs": [
         {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "policeTipCount",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "policeTipIds",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "name": "policeToTips",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "tipid",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "tipstatus",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address payable",
+          "name": "tipsender",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
           "internalType": "contract TipToken",
           "name": "tokenContract",
           "type": "address"
@@ -303,17 +374,17 @@
     {
       "inputs": [
         {
-          "internalType": "string",
+          "internalType": "address",
           "name": "",
-          "type": "string"
+          "type": "address"
         }
       ],
       "name": "registeredTippers",
       "outputs": [
         {
-          "internalType": "address",
+          "internalType": "string",
           "name": "",
-          "type": "address"
+          "type": "string"
         }
       ],
       "stateMutability": "view",
@@ -416,6 +487,83 @@
         {
           "internalType": "contract TipToken",
           "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "userTipCount",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "userTipIds",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "name": "userToTips",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "tipid",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "tipstatus",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address payable",
+          "name": "tipsender",
           "type": "address"
         }
       ],
@@ -14685,21 +14833,11 @@
   "ast": {
     "absolutePath": "project:/contracts/TipOff.sol",
     "exportedSymbols": {
-      "EIP712Base": [
-        93
-      ],
-      "EIP712MetaTransaction": [
-        372
-      ],
-      "SafeMath": [
-        742
-      ],
-      "TipOff": [
-        1020
-      ],
-      "TipToken": [
-        1246
-      ]
+      "EIP712Base": [93],
+      "EIP712MetaTransaction": [372],
+      "SafeMath": [742],
+      "TipOff": [1020],
+      "TipToken": [1246]
     },
     "id": 1021,
     "license": "MIT",
@@ -14707,11 +14845,7 @@
     "nodes": [
       {
         "id": 744,
-        "literals": [
-          "solidity",
-          "0.8",
-          ".0"
-        ],
+        "literals": ["solidity", "0.8", ".0"],
         "nodeType": "PragmaDirective",
         "src": "33:22:4"
       },
@@ -14787,18 +14921,11 @@
             "src": "145:36:4"
           }
         ],
-        "contractDependencies": [
-          93,
-          372
-        ],
+        "contractDependencies": [93, 372],
         "contractKind": "contract",
         "fullyImplemented": true,
         "id": 1020,
-        "linearizedBaseContracts": [
-          1020,
-          372,
-          93
-        ],
+        "linearizedBaseContracts": [1020, 372, 93],
         "name": "TipOff",
         "nodeType": "ContractDefinition",
         "nodes": [
@@ -16297,9 +16424,7 @@
               "src": "1701:230:4",
               "statements": [
                 {
-                  "assignments": [
-                    880
-                  ],
+                  "assignments": [880],
                   "declarations": [
                     {
                       "constant": false,
@@ -16567,9 +16692,7 @@
               "src": "2077:335:4",
               "statements": [
                 {
-                  "assignments": [
-                    909
-                  ],
+                  "assignments": [909],
                   "declarations": [
                     {
                       "constant": false,
@@ -16742,9 +16865,7 @@
                   "src": "2142:24:4"
                 },
                 {
-                  "assignments": [
-                    922
-                  ],
+                  "assignments": [922],
                   "declarations": [
                     {
                       "constant": false,
@@ -17184,9 +17305,7 @@
               "src": "2482:244:4",
               "statements": [
                 {
-                  "assignments": [
-                    952
-                  ],
+                  "assignments": [952],
                   "declarations": [
                     {
                       "constant": false,
@@ -17573,9 +17692,7 @@
               "src": "2809:326:4",
               "statements": [
                 {
-                  "assignments": [
-                    985
-                  ],
+                  "assignments": [985],
                   "declarations": [
                     {
                       "constant": false,
@@ -17653,9 +17770,7 @@
                   "src": "2820:37:4"
                 },
                 {
-                  "assignments": [
-                    991
-                  ],
+                  "assignments": [991],
                   "declarations": [
                     {
                       "constant": false,
@@ -18169,21 +18284,11 @@
   "legacyAST": {
     "absolutePath": "project:/contracts/TipOff.sol",
     "exportedSymbols": {
-      "EIP712Base": [
-        93
-      ],
-      "EIP712MetaTransaction": [
-        372
-      ],
-      "SafeMath": [
-        742
-      ],
-      "TipOff": [
-        1020
-      ],
-      "TipToken": [
-        1246
-      ]
+      "EIP712Base": [93],
+      "EIP712MetaTransaction": [372],
+      "SafeMath": [742],
+      "TipOff": [1020],
+      "TipToken": [1246]
     },
     "id": 1021,
     "license": "MIT",
@@ -18191,11 +18296,7 @@
     "nodes": [
       {
         "id": 744,
-        "literals": [
-          "solidity",
-          "0.8",
-          ".0"
-        ],
+        "literals": ["solidity", "0.8", ".0"],
         "nodeType": "PragmaDirective",
         "src": "33:22:4"
       },
@@ -18271,18 +18372,11 @@
             "src": "145:36:4"
           }
         ],
-        "contractDependencies": [
-          93,
-          372
-        ],
+        "contractDependencies": [93, 372],
         "contractKind": "contract",
         "fullyImplemented": true,
         "id": 1020,
-        "linearizedBaseContracts": [
-          1020,
-          372,
-          93
-        ],
+        "linearizedBaseContracts": [1020, 372, 93],
         "name": "TipOff",
         "nodeType": "ContractDefinition",
         "nodes": [
@@ -19781,9 +19875,7 @@
               "src": "1701:230:4",
               "statements": [
                 {
-                  "assignments": [
-                    880
-                  ],
+                  "assignments": [880],
                   "declarations": [
                     {
                       "constant": false,
@@ -20051,9 +20143,7 @@
               "src": "2077:335:4",
               "statements": [
                 {
-                  "assignments": [
-                    909
-                  ],
+                  "assignments": [909],
                   "declarations": [
                     {
                       "constant": false,
@@ -20226,9 +20316,7 @@
                   "src": "2142:24:4"
                 },
                 {
-                  "assignments": [
-                    922
-                  ],
+                  "assignments": [922],
                   "declarations": [
                     {
                       "constant": false,
@@ -20668,9 +20756,7 @@
               "src": "2482:244:4",
               "statements": [
                 {
-                  "assignments": [
-                    952
-                  ],
+                  "assignments": [952],
                   "declarations": [
                     {
                       "constant": false,
@@ -21057,9 +21143,7 @@
               "src": "2809:326:4",
               "statements": [
                 {
-                  "assignments": [
-                    985
-                  ],
+                  "assignments": [985],
                   "declarations": [
                     {
                       "constant": false,
@@ -21137,9 +21221,7 @@
                   "src": "2820:37:4"
                 },
                 {
-                  "assignments": [
-                    991
-                  ],
+                  "assignments": [991],
                   "declarations": [
                     {
                       "constant": false,
@@ -21709,7 +21791,7 @@
         }
       },
       "links": {},
-      "address": "0xFC949B8c008A9EB4d242fB12DdEaF1b80C13c174",
+      "address": "0xAB7f047ef56576d8Bc992B85b7484A15A8950f22",
       "transactionHash": "0x2b8194af5a56e62e39717f90ab3e22cae8019c6a52fadc385120f36153a9352d"
     }
   },

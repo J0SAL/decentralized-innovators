@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.0;
+pragma solidity ^0.8.7;
 
 import "./TipToken.sol";
 import "./EIP712MetaTransaction.sol";
@@ -11,7 +11,7 @@ contract TipOff is EIP712MetaTransaction("TipOff", "1") {
     mapping(uint => TipToken) public tokencontractinstances;
     uint public contractsregistered = 0;
 
-    mapping(string => address) public registeredTippers;
+    mapping(address => string) public registeredTippers;
     /*
         0 - pending
         1 - approved
@@ -24,12 +24,19 @@ contract TipOff is EIP712MetaTransaction("TipOff", "1") {
     }
 
     mapping(string => Tipof) public history;
-    mapping(address => Tipof[]) userToTips;
-    mapping(address => Tipof[]) policeToTips;
+
+    mapping(address => uint) public userTipCount;
+    mapping(address => uint) public policeTipCount;
+
+    mapping(address => string[]) public userTipIds;
+    mapping(address => string[]) public policeTipIds;
+
+    mapping(address => mapping(string => Tipof)) public userToTips;
+    mapping(address => mapping(string => Tipof)) public policeToTips;
 
     constructor() {
         admin = payable(msg.sender);
-        approving_police = 0x5B38Da6a701c568545dCfcB03FcB875f56beddC4;
+        approving_police = 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266;
     }
 
     function swapper(
@@ -60,20 +67,14 @@ contract TipOff is EIP712MetaTransaction("TipOff", "1") {
         string memory aadharhash,
         address caller
     ) public payable {
-        registeredTippers[aadharhash] = caller;
+        // registeredTippers[aadharhash] = caller;
+        registeredTippers[caller] = aadharhash;
         tokencontractinstances[instance].transfer_From(admin, caller, 10);
         emit transferred(admin, caller, 10);
     }
 
-    function checkIfAlreadyRegistered(
-        string memory aadharhash
-    ) public view returns (bool) {
-        address walletaddress = registeredTippers[aadharhash];
-        if (walletaddress == 0x0000000000000000000000000000000000000000) {
-            return false;
-        } else {
-            return true;
-        }
+    function checkIfAlreadyRegistered() public view returns (bool) {
+        return bytes(registeredTippers[msg.sender]).length > 0;
     }
 
     function tipoff(
@@ -83,7 +84,7 @@ contract TipOff is EIP712MetaTransaction("TipOff", "1") {
         address payable tipper,
         address police
     ) public payable {
-        require(msg.sender == approving_police, "not a police"); // temp
+        // require(msg.sender == approving_police, "not a police");
         Tipof memory tipdata = Tipof(tipid, 0, tipper);
         history[tipid] = tipdata;
         address contractadd = address(this);
@@ -92,8 +93,15 @@ contract TipOff is EIP712MetaTransaction("TipOff", "1") {
             contractadd,
             tipamt
         );
-        userToTips[tipper].push(tipdata);
-        policeToTips[police].push(tipdata);
+        userTipCount[tipper] += 1;
+        policeTipCount[police] += 1;
+
+        userTipIds[tipper].push(tipid);
+        policeTipIds[police].push(tipid);
+
+        userToTips[tipper][tipid] = tipdata;
+        policeToTips[police][tipid] = tipdata;
+
         emit transferred(tipper, contractadd, tipamt);
     }
 
@@ -110,7 +118,12 @@ contract TipOff is EIP712MetaTransaction("TipOff", "1") {
             tipamt
         );
 
+        address tipper = history[tipid].tipsender;
+
+        userToTips[tipper][tipid].tipstatus = 2;
+        policeToTips[approving_police][tipid].tipstatus = 2;
         history[tipid].tipstatus = 2;
+
         emit transferred(contractadd, admin, tipamt);
     }
 
@@ -129,7 +142,10 @@ contract TipOff is EIP712MetaTransaction("TipOff", "1") {
             tipamt + 1
         );
 
+        userToTips[tipdata.tipsender][tipid].tipstatus = 1;
+        policeToTips[approving_police][tipid].tipstatus = 1;
         history[tipid].tipstatus = 1;
+
         emit transferred(contractadd, tipdata.tipsender, tipamt + 1);
     }
 
@@ -137,13 +153,29 @@ contract TipOff is EIP712MetaTransaction("TipOff", "1") {
         address police
     ) public view returns (Tipof[] memory) {
         // TODO
-        Tipof[] memory tips = userToTips[police];
+        uint n = policeTipCount[police];
+
+        Tipof[] memory tips = new Tipof[](n);
+        for (uint i = 0; i < n; i++) {
+            Tipof memory t = policeToTips[approving_police][
+                policeTipIds[approving_police][i]
+            ];
+            tips[i] = t;
+        }
+
         return tips;
     }
 
     function getTipsByUser() public view returns (Tipof[] memory) {
         // TODO
-        Tipof[] memory tips = userToTips[msg.sender];
+        uint n = userTipCount[msg.sender];
+
+        Tipof[] memory tips = new Tipof[](n);
+        for (uint i = 0; i < n; i++) {
+            Tipof memory t = userToTips[msg.sender][userTipIds[msg.sender][i]];
+            tips[i] = t;
+        }
+
         return tips;
     }
 }

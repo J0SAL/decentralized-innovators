@@ -4614,9 +4614,7 @@
   "ast": {
     "absolutePath": "project:/contracts/TipToken.sol",
     "exportedSymbols": {
-      "TipToken": [
-        1246
-      ]
+      "TipToken": [1246]
     },
     "id": 1247,
     "license": "MIT",
@@ -4624,11 +4622,7 @@
     "nodes": [
       {
         "id": 1022,
-        "literals": [
-          "solidity",
-          "0.8",
-          ".0"
-        ],
+        "literals": ["solidity", "0.8", ".0"],
         "nodeType": "PragmaDirective",
         "src": "33:22:5"
       },
@@ -4639,9 +4633,7 @@
         "contractKind": "contract",
         "fullyImplemented": true,
         "id": 1246,
-        "linearizedBaseContracts": [
-          1246
-        ],
+        "linearizedBaseContracts": [1246],
         "name": "TipToken",
         "nodeType": "ContractDefinition",
         "nodes": [
@@ -5391,10 +5383,7 @@
                       "id": 1085,
                       "name": "require",
                       "nodeType": "Identifier",
-                      "overloadedDeclarations": [
-                        4294967278,
-                        4294967278
-                      ],
+                      "overloadedDeclarations": [4294967278, 4294967278],
                       "referencedDeclaration": 4294967278,
                       "src": "822:7:5",
                       "typeDescriptions": {
@@ -6229,10 +6218,7 @@
                       "id": 1156,
                       "name": "require",
                       "nodeType": "Identifier",
-                      "overloadedDeclarations": [
-                        4294967278,
-                        4294967278
-                      ],
+                      "overloadedDeclarations": [4294967278, 4294967278],
                       "referencedDeclaration": 4294967278,
                       "src": "1427:7:5",
                       "typeDescriptions": {
@@ -6724,10 +6710,7 @@
                       "id": 1196,
                       "name": "require",
                       "nodeType": "Identifier",
-                      "overloadedDeclarations": [
-                        4294967278,
-                        4294967278
-                      ],
+                      "overloadedDeclarations": [4294967278, 4294967278],
                       "referencedDeclaration": 4294967278,
                       "src": "1876:7:5",
                       "typeDescriptions": {
@@ -6874,10 +6857,7 @@
                       "id": 1204,
                       "name": "require",
                       "nodeType": "Identifier",
-                      "overloadedDeclarations": [
-                        4294967278,
-                        4294967278
-                      ],
+                      "overloadedDeclarations": [4294967278, 4294967278],
                       "referencedDeclaration": 4294967278,
                       "src": "1922:7:5",
                       "typeDescriptions": {
@@ -7399,9 +7379,7 @@
   "legacyAST": {
     "absolutePath": "project:/contracts/TipToken.sol",
     "exportedSymbols": {
-      "TipToken": [
-        1246
-      ]
+      "TipToken": [1246]
     },
     "id": 1247,
     "license": "MIT",
@@ -7409,11 +7387,7 @@
     "nodes": [
       {
         "id": 1022,
-        "literals": [
-          "solidity",
-          "0.8",
-          ".0"
-        ],
+        "literals": ["solidity", "0.8", ".0"],
         "nodeType": "PragmaDirective",
         "src": "33:22:5"
       },
@@ -7424,9 +7398,7 @@
         "contractKind": "contract",
         "fullyImplemented": true,
         "id": 1246,
-        "linearizedBaseContracts": [
-          1246
-        ],
+        "linearizedBaseContracts": [1246],
         "name": "TipToken",
         "nodeType": "ContractDefinition",
         "nodes": [
@@ -8176,10 +8148,7 @@
                       "id": 1085,
                       "name": "require",
                       "nodeType": "Identifier",
-                      "overloadedDeclarations": [
-                        4294967278,
-                        4294967278
-                      ],
+                      "overloadedDeclarations": [4294967278, 4294967278],
                       "referencedDeclaration": 4294967278,
                       "src": "822:7:5",
                       "typeDescriptions": {
@@ -9014,10 +8983,7 @@
                       "id": 1156,
                       "name": "require",
                       "nodeType": "Identifier",
-                      "overloadedDeclarations": [
-                        4294967278,
-                        4294967278
-                      ],
+                      "overloadedDeclarations": [4294967278, 4294967278],
                       "referencedDeclaration": 4294967278,
                       "src": "1427:7:5",
                       "typeDescriptions": {
@@ -9509,10 +9475,7 @@
                       "id": 1196,
                       "name": "require",
                       "nodeType": "Identifier",
-                      "overloadedDeclarations": [
-                        4294967278,
-                        4294967278
-                      ],
+                      "overloadedDeclarations": [4294967278, 4294967278],
                       "referencedDeclaration": 4294967278,
                       "src": "1876:7:5",
                       "typeDescriptions": {
@@ -9659,10 +9622,7 @@
                       "id": 1204,
                       "name": "require",
                       "nodeType": "Identifier",
-                      "overloadedDeclarations": [
-                        4294967278,
-                        4294967278
-                      ],
+                      "overloadedDeclarations": [4294967278, 4294967278],
                       "referencedDeclaration": 4294967278,
                       "src": "1922:7:5",
                       "typeDescriptions": {
@@ -10240,7 +10200,7 @@
         }
       },
       "links": {},
-      "address": "0x2db8292d693fDB459d2E15A60CD45EECf0940D04",
+      "address": "0x8028F722409E92269147F3b8bE27ABC595476425",
       "transactionHash": "0x48d24c2ef13eabd64f37e3689f074ad365f1c9a4ba7ee81ee56c9ee8277827d2"
     }
   },
