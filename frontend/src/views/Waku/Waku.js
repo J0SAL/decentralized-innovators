@@ -7,8 +7,8 @@ import {
   PageDirection,
 } from "@waku/sdk";
 import protobuf from "protobufjs";
-import "./App.css";
-import "./Chat.css";
+import "../../App.css";
+import "../../Chat.css";
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import SearchOutlined from "@mui/icons-material/SearchOutlined";
@@ -16,12 +16,12 @@ import AttachFile from "@mui/icons-material/AttachFile";
 import MoreVert from "@mui/icons-material/MoreVert";
 import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
 import SendIcon from "@mui/icons-material/Send";
-const Waku = () => {
+const Waku = (props) => {
   const [node, setNode] = useState(null);
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
   const [encoder, setEncoder] = useState(null);
-  const topic = "/samay/1/message/proto";
+  const topic = "Samayy";
   const userAddress = "User";
   useEffect(() => {
     console.log("Starting Waku Node...");
