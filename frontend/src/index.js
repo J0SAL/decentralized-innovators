@@ -11,9 +11,9 @@ const app_id = process.env.REACT_APP_APP_ID || "";
 ReactDOM.render(
   <AnonAadhaarProvider _appId={app_id} _isWeb={false}>
     <BrowserRouter>
-    <LightNodeProvider options={NODE_OPTIONS}>
-      <App />
-    </LightNodeProvider>
+      <LightNodeProvider options={NODE_OPTIONS}>
+        <App />
+      </LightNodeProvider>
     </BrowserRouter>
   </AnonAadhaarProvider>,
   document.getElementById("root")
