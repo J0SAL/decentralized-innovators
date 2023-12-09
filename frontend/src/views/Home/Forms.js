@@ -57,6 +57,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { styled } from "@mui/material/styles";
+import { POLICE_ADDRESS } from "../../assets/constants/Constants.js";
 
 // core components
 import IndexNavbar from "../../components/Navbars/IndexNavbar.js";
@@ -205,8 +206,7 @@ function Index() {
       tip["imageFileHash"] = fileHash;
       // tip["walletaddresshash"] = accounts[0];
       toast.loading("Submitting!", { closeOnClick: true });
-      let resp = await uploadTipDataToLightHouse(tip);
-      console.log(resp);
+
       // axios
       //   .post("http://localhost:8000/tip_data/", {
       //     data: JSON.stringify(tip),
@@ -231,6 +231,16 @@ function Index() {
       //         });
       //     }
       //   });
+      let apiresponse = 2;
+      if (apiresponse == 1) {
+        let resp = await uploadTipDataToLightHouse(tip);
+
+        await contract.methods
+          .tipoff(0, resp, amt, accounts[0], POLICE_ADDRESS)
+          .send({ from: accounts[0] });
+      } else {
+        spamtext();
+      }
     } catch (err) {
       console.log(err);
     }

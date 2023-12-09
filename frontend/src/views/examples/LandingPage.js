@@ -18,7 +18,7 @@ import LandingPageHeader from "../../components/Headers/LandingPageHeader.js";
 import DefaultFooter from "../../components/Footers/DefaultFooter.js";
 
 function LandingPage() {
-  console.log("In Landing Page")
+  console.log("In Landing Page");
   const [firstFocus, setFirstFocus] = React.useState(false);
   const [lastFocus, setLastFocus] = React.useState(false);
   React.useEffect(() => {
@@ -59,7 +59,9 @@ function LandingPage() {
                     className="image-container image-left"
                     style={{
                       backgroundImage:
-                        "url(" + require("../../assets/img/login.jpg").default + ")",
+                        "url(" +
+                        require("../../assets/img/login.jpg").default +
+                        ")",
                     }}
                   >
                     <p className="blockquote blockquote-info">
@@ -74,7 +76,9 @@ function LandingPage() {
                     className="image-container"
                     style={{
                       backgroundImage:
-                        "url(" + require("../../assets/img/bg3.jpg").default + ")",
+                        "url(" +
+                        require("../../assets/img/natgrid_bg.jpeg").default +
+                        ")",
                     }}
                   ></div>
                 </Col>
@@ -83,7 +87,9 @@ function LandingPage() {
                     className="image-container image-right"
                     style={{
                       backgroundImage:
-                        "url(" + require("../../assets/img/bg1.jpg").default + ")",
+                        "url(" +
+                        require("../../assets/img/natgrid_bg.jpeg").default +
+                        ")",
                     }}
                   ></div>
                   <h3>

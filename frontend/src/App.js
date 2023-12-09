@@ -5,19 +5,20 @@ import "./assets/demo/nucleo-icons-page-styles.css?v=1.5.0";
 import "./assets/scss/now-ui-kit.scss?v=1.5.0";
 import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
+import { useNavigate } from "react-router";
 import LandingPage from "./views/examples/LandingPage.js";
 // import LoginPage from "views/examples/LoginPage.js";
 // import ProfilePage from "views/examples/ProfilePage.js";
 // import GovPortal from "views/GovPortal/GovPortal.js";
 import Forms from "./views/Home/Forms.js";
-// import Home from "views/Home/Home.js";
-// import Mental from "views/Home/Mental.js";
+import Home from "./views/Home/Home.js";
+import Mental from "./views/Home/Mental.js";
 // import Deposits from "views/Dashboard/Deposits";
 
 import Index from "./views/Index.js";
 // import NucleoIcons from "views/NucleoIcons.js";
 // import PlacesSearchBar from "views/PlacesSearchBar/PlacesSearchBar";
-import Web3 from "web3";
+import Web3, { ERR_INVALID_RESPONSE } from "web3";
 import TipOff from "./abis/TipOff.json";
 import BlockchainContext from "./context/BlockChainContext";
 
@@ -60,7 +61,9 @@ const App = () => {
   const [web3, setWeb3] = useState(undefined);
   const [accounts, setAccounts] = useState([]);
   const [contract, setContract] = useState();
+  const [redirectToOnboard, setUserOnboard] = useState();
 
+  const navigate = useNavigate();
   const app_id = process.env.REACT_APP_APP_ID || "";
 
   const crimeData = {
@@ -403,10 +406,22 @@ const App = () => {
     }
   };
 
+  const checkIfuserAlreadyregistered = async () => {
+    let res = await contract.methods
+      .checkIfAlreadyRegistered()
+      .send({ from: accounts[0] });
+    return res;
+  };
+
+  //extend thi useeffec and set state
   useEffect(() => {
     if (accounts[0] === POLICE_ADDRESS) {
       console.log("Police found");
       return;
+    } else if (checkIfuserAlreadyregistered()) {
+      navigate("/mental");
+    } else {
+      navigate("/user-onboard");
     }
   }, [accounts]);
 
@@ -419,12 +434,6 @@ const App = () => {
   return (
     <BlockchainContext.Provider value={{ web3, accounts, contract }}>
       <Routes>
-        <Route
-          path="/index"
-          element={
-            <Index web3={web3} accounts={accounts} contract={contract} />
-          }
-        />
         <Route
           path="/index"
           element={
@@ -466,9 +475,9 @@ const App = () => {
             render={(props) => <GovPortal {...props} />}
           /> */}
 
-        {/* <Route path="/mental" render={(props) => <Mental {...props} />} /> */}
-        {/* <Route path="/home" render={(props) => <Home {...props} />} /> */}
-        {/* <Route path="/form" render={(props) => <Forms {...props} />} /> */}
+        <Route path="/mental" element={<Mental />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/form" element={<Forms />} />
 
         {/* <Route
             path="/user-login-page"

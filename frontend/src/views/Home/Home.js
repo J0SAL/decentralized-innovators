@@ -18,10 +18,10 @@ import {
 } from "reactstrap";
 
 // core components
-import IndexNavbar from "components/Navbars/IndexNavbar.js";
-import IndexHeader from "components/Headers/IndexHeader.js";
-import DarkFooter from "components/Footers/DarkFooter.js";
-import { useHistory } from "react-router-dom";
+import IndexNavbar from "../../components/Navbars/IndexNavbar.js";
+import IndexHeader from "../../components/Headers/IndexHeader.js";
+import DarkFooter from "../../components/Footers/DarkFooter.js";
+import { useNavigate } from "react-router";
 
 // sections for this page
 import Images from "../index-sections/Images.js";
@@ -29,7 +29,7 @@ import Images from "../index-sections/Images.js";
 function Index() {
   const [modal1, setModal1] = React.useState(true);
   const [modal2, setModal2] = React.useState(false);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     document.body.classList.add("index-page");
@@ -113,7 +113,8 @@ function Index() {
                       }}
                       className="mb-0"
                     >
-                      I understand that repeatedly submitting tips that lack investigative value may lead to them being overlooked.
+                      I understand that repeatedly submitting tips that lack
+                      investigative value may lead to them being overlooked.
                     </p>
                   </blockquote>
                   {/* <blockquote
@@ -266,7 +267,7 @@ function Index() {
                   color="info"
                   onClick={(e) => {
                     e.preventDefault();
-                    history.push(`/mental`);
+                    navigate(`/mental`);
                   }}
                 >
                   Next
