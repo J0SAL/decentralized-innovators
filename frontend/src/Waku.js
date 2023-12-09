@@ -22,6 +22,7 @@ const Waku = () => {
   const [inputMessage, setInputMessage] = useState("");
   const [encoder, setEncoder] = useState(null);
   const topic = "/samay/1/message/proto";
+  const userAddress = "User";
   useEffect(() => {
     console.log("Starting Waku Node...");
     const startWakuNode = async () => {
@@ -34,7 +35,6 @@ const Waku = () => {
       await waitForRemotePeer(wakuNode);
       console.log("Remote peer found!");
       const contentTopic = topic;
-      const userAddress = "User"
       const newEncoder = createEncoder({ contentTopic });
       setEncoder(newEncoder);
       setNode(wakuNode);
@@ -188,7 +188,9 @@ const Waku = () => {
           .map((message) => (
             <p
               className={`chat__message ${
-                message.sender === userAddress ? "chat__receiver" : "chat__message2"
+                message.sender === userAddress
+                  ? "chat__receiver"
+                  : "chat__message2"
               }`}
             >
               {message.message}
