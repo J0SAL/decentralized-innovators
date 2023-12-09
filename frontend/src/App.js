@@ -32,7 +32,7 @@ const getWeb3 = async () => {
     try {
       // Request account access if needed
       await window.ethereum.enable();
-      console.log("temp1 ",tempWeb3);
+      console.log("temp1 ", tempWeb3);
       // console.log(web3.eth.getAccounts());
       // Acccounts now exposed
     } catch (error) {
@@ -42,7 +42,7 @@ const getWeb3 = async () => {
   // Legacy dapp browsers...
   else if (tempWeb3) {
     tempWeb3 = new Web3(tempWeb3.currentProvider);
-    console.log("temp2",tempWeb3);
+    console.log("temp2", tempWeb3);
     // Acccounts always exposed
   }
   // Non-dapp browsers...
@@ -405,28 +405,25 @@ const App = () => {
       }
 
       // saving this to states
-
-      console.log("contract init", contract);
-      console.log("accounts", accounts);
-      console.log("web3", web3);
     };
-
     init();
-  }, [web3, accounts, contract]);
+  }, []);
 
   return (
     <BlockchainContext.Provider value={{ web3, accounts, contract }}>
       <Routes>
-        <Route path="/index" element={ <Index web3={web3} accounts={accounts} contract={contract} />} />
+        <Route
+          path="/index"
+          element={
+            <Index web3={web3} accounts={accounts} contract={contract} />
+          }
+        />
 
         {/* <Route
             path="/nucleo-icons"
             render={(props) => <NucleoIcons {...props} />}
           /> */}
-        <Route
-          path="/landing-page"
-          element={<LandingPage />}
-        />
+        <Route path="/landing-page" element={<LandingPage />} />
 
         <Route path="/user-onboard" />
         {/* <Route
