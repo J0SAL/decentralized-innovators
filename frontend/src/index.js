@@ -1,22 +1,20 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
-import "./index.css";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
+import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import { LightNodeProvider } from "@waku/react";
+import App from "./App";
+import { AnonAadhaarProvider } from "anon-aadhaar-react";
 const NODE_OPTIONS = { defaultBootstrap: true };
-
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
-  <BrowserRouter>
-       <LightNodeProvider options={NODE_OPTIONS}>
+const app_id = process.env.REACT_APP_APP_ID || "";
+
+ReactDOM.render(
+  <AnonAadhaarProvider _appId={app_id} _isWeb={false}>
+    <BrowserRouter>
+    <LightNodeProvider options={NODE_OPTIONS}>
       <App />
     </LightNodeProvider>
-  </BrowserRouter>
+    </BrowserRouter>
+  </AnonAadhaarProvider>,
+  document.getElementById("root")
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();

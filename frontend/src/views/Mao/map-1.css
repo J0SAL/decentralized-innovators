@@ -1,0 +1,143 @@
+.map-container {
+    height: 100vh;
+  }
+  
+.sidebar {
+    background-color: rgba(35, 55, 75, 0.9);
+    color: #fff;
+    padding: 6px 12px;
+    font-family: monospace;
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 12px;
+    border-radius: 4px;
+  }
+
+.mapboxgl-popup {
+    max-width: 480px !important;
+}
+
+.mapboxgl-popup-content {
+    font-size: medium;
+    font-family: 'Roboto';
+}
+
+.tip-popups-list-container {
+  width: 400px;
+  background-color: whitesmoke;
+  position: absolute;
+  z-index: 30;
+  top: 220px;
+  /* left: 75px; */
+  border-radius: 30px;
+  bottom: 20px;
+  overflow: scroll;
+  /* height: 100%; */
+  opacity: 80%;
+}
+
+.tip-popups-list {
+  position: absolute;
+  padding-left: 20px;
+  padding-right: 20px;
+  overflow-y: hidden;
+  /* height: 100%; */
+}
+
+.tip-popup-container {
+  display: flex;
+  border-bottom: 1px solid lightgrey;
+  cursor: pointer;
+}
+
+
+.tip-popup-info-container {
+  flex-grow: 1;
+  
+}
+
+.tip-popup-address {
+  font-size: 16px;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.tip-popup-address span {
+  display:block;  
+}
+
+.tip-popup-phone-number {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.tip-popup-number-container {
+  align-items: center;
+  display:flex;
+}
+
+
+.tip-popup-number {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(89, 185, 153);
+  border-radius: 50%;
+  color: white;
+}
+
+.tip-popup-info-window{
+  min-width: 450px;
+  /* font-size: 18px; */
+  padding:8px;
+}
+
+.tip-popup-info-name {
+  font-size: 24px;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.87)
+}
+
+.tip-popup-info-status {
+  margin-top: 6px;
+  border-bottom: 1px solid lightgrey;
+  padding-bottom: 6px;
+}
+
+.tip-popup-info-address, .tip-popup-info-phone,  .tip-popup-info-beds{
+  display:flex;
+  margin-top: 8px;
+  align-items: center;
+}
+
+.tip-popup-info-address .circle, .tip-popup-info-phone .circle , .tip-popup-info-beds .circle {
+  width:30px;
+  height:30px;
+  font-weight: bold;
+  margin-right: 8px ;
+  background-color: yellow;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tip-popup-container-background {
+  width:100%;
+  display:flex;
+  border-radius: 18px;
+  padding-left: 8px;
+  padding-right: 8px;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  transition: background 0.2s ease-in-out;
+  color: black;
+}
+.tip-popup-container-background:hover {
+  background-color: grey;
+  color: white;
+} 
