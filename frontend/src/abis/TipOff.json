@@ -57,6 +57,48 @@
       "type": "event"
     },
     {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "instance",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "tipid",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "tipamt",
+          "type": "uint256"
+        }
+      ],
+      "name": "approveTip",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "aadharhash",
+          "type": "string"
+        }
+      ],
+      "name": "checkIfAlreadyRegistered",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
       "inputs": [],
       "name": "contractsregistered",
       "outputs": [
@@ -67,8 +109,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -107,8 +148,7 @@
         }
       ],
       "stateMutability": "payable",
-      "type": "function",
-      "payable": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -127,22 +167,92 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [
         {
-          "internalType": "uint256",
+          "internalType": "address",
+          "name": "police",
+          "type": "address"
+        }
+      ],
+      "name": "getTipsByPoliceStation",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "string",
+              "name": "tipid",
+              "type": "string"
+            },
+            {
+              "internalType": "uint256",
+              "name": "tipstatus",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address payable",
+              "name": "tipsender",
+              "type": "address"
+            }
+          ],
+          "internalType": "struct TipOff.Tipof[]",
           "name": "",
-          "type": "uint256"
+          "type": "tuple[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getTipsByUser",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "string",
+              "name": "tipid",
+              "type": "string"
+            },
+            {
+              "internalType": "uint256",
+              "name": "tipstatus",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address payable",
+              "name": "tipsender",
+              "type": "address"
+            }
+          ],
+          "internalType": "struct TipOff.Tipof[]",
+          "name": "",
+          "type": "tuple[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
         }
       ],
       "name": "history",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "string",
           "name": "tipid",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "tipstatus",
           "type": "uint256"
         },
         {
@@ -152,8 +262,43 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "instance",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "aadharhash",
+          "type": "string"
+        },
+        {
+          "internalType": "address",
+          "name": "caller",
+          "type": "address"
+        }
+      ],
+      "name": "onboard",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "contract TipToken",
+          "name": "tokenContract",
+          "type": "address"
+        }
+      ],
+      "name": "registerNewContract",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
     },
     {
       "inputs": [
@@ -172,28 +317,30 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [
         {
           "internalType": "uint256",
-          "name": "",
+          "name": "instance",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "tipid",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "tipamt",
           "type": "uint256"
         }
       ],
-      "name": "tokencontractinstances",
-      "outputs": [
-        {
-          "internalType": "contract TipToken",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "name": "rejectTip",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
     },
     {
       "inputs": [
@@ -221,22 +368,7 @@
       "name": "swapper",
       "outputs": [],
       "stateMutability": "payable",
-      "type": "function",
-      "payable": true
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "contract TipToken",
-          "name": "tokenContract",
-          "type": "address"
-        }
-      ],
-      "name": "registerNewContract",
-      "outputs": [],
-      "stateMutability": "payable",
-      "type": "function",
-      "payable": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -247,52 +379,8 @@
         },
         {
           "internalType": "string",
-          "name": "aadharhash",
-          "type": "string"
-        },
-        {
-          "internalType": "address",
-          "name": "caller",
-          "type": "address"
-        }
-      ],
-      "name": "onboard",
-      "outputs": [],
-      "stateMutability": "payable",
-      "type": "function",
-      "payable": true
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "string",
-          "name": "aadharhash",
-          "type": "string"
-        }
-      ],
-      "name": "checkIfAlreadyRegistered",
-      "outputs": [
-        {
-          "internalType": "bool",
-          "name": "",
-          "type": "bool"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function",
-      "constant": true
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "instance",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
           "name": "tipid",
-          "type": "uint256"
+          "type": "string"
         },
         {
           "internalType": "uint256",
@@ -303,56 +391,36 @@
           "internalType": "address payable",
           "name": "tipper",
           "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "police",
+          "type": "address"
         }
       ],
       "name": "tipoff",
       "outputs": [],
       "stateMutability": "payable",
-      "type": "function",
-      "payable": true
+      "type": "function"
     },
     {
       "inputs": [
         {
           "internalType": "uint256",
-          "name": "instance",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "tipamt",
+          "name": "",
           "type": "uint256"
         }
       ],
-      "name": "rejectTip",
-      "outputs": [],
-      "stateMutability": "payable",
-      "type": "function",
-      "payable": true
-    },
-    {
-      "inputs": [
+      "name": "tokencontractinstances",
+      "outputs": [
         {
-          "internalType": "uint256",
-          "name": "instance",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "tipid",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "tipamt",
-          "type": "uint256"
+          "internalType": "contract TipToken",
+          "name": "",
+          "type": "address"
         }
       ],
-      "name": "approveTip",
-      "outputs": [],
-      "stateMutability": "payable",
-      "type": "function",
-      "payable": true
+      "stateMutability": "view",
+      "type": "function"
     }
   ],
   "metadata": "{\"compiler\":{\"version\":\"0.8.0+commit.c7dfd78e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"userAddress\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address payable\",\"name\":\"relayerAddress\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"functionSignature\",\"type\":\"bytes\"}],\"name\":\"MetaTransactionExecuted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"receiver\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"transferred\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"instance\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"tipid\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"tipamt\",\"type\":\"uint256\"}],\"name\":\"approveTip\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"aadharhash\",\"type\":\"string\"}],\"name\":\"checkIfAlreadyRegistered\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"contractsregistered\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"userAddress\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"functionSignature\",\"type\":\"bytes\"},{\"internalType\":\"bytes32\",\"name\":\"sigR\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"sigS\",\"type\":\"bytes32\"},{\"internalType\":\"uint8\",\"name\":\"sigV\",\"type\":\"uint8\"}],\"name\":\"executeMetaTransaction\",\"outputs\":[{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"}],\"name\":\"getNonce\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"nonce\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"history\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"tipid\",\"type\":\"uint256\"},{\"internalType\":\"address payable\",\"name\":\"tipsender\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"instance\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"aadharhash\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"caller\",\"type\":\"address\"}],\"name\":\"onboard\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"contract TipToken\",\"name\":\"tokenContract\",\"type\":\"address\"}],\"name\":\"registerNewContract\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"name\":\"registeredTippers\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"instance\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"tipamt\",\"type\":\"uint256\"}],\"name\":\"rejectTip\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"instance1\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"instance2\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"amounttoswap\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"beneficiary\",\"type\":\"address\"}],\"name\":\"swapper\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"instance\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"tipid\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"tipamt\",\"type\":\"uint256\"},{\"internalType\":\"address payable\",\"name\":\"tipper\",\"type\":\"address\"}],\"name\":\"tipoff\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"tokencontractinstances\",\"outputs\":[{\"internalType\":\"contract TipToken\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/TipOff.sol\":\"TipOff\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/EIP712Base.sol\":{\"keccak256\":\"0xa1ca126962289c95a61a55db4bf5d1f0dae3cc23a69254d8a87669bd90bb56d4\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://e42cf4fd498c18fa43b6fc69d9ab654bad8a921c3d384d91172a84ad8c926c8b\",\"dweb:/ipfs/QmfM7gy6XToWYkwXDQ6gKMxu4zc8gSvVKYdVgxGswHK34Y\"]},\"project:/contracts/EIP712MetaTransaction.sol\":{\"keccak256\":\"0x739678dc73b8a8332fc83467b2b95b7e674ae1218464f159e0f963a5c16787e0\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://e5e696bf3d81cd6cbe9f0c9f1fa4a0e8909cb91d2a6054656880ef7ad0a6d7e9\",\"dweb:/ipfs/QmdyxxF68EWCHFYFyktojmzRPZrpS3o6DNoX2L55sUHtav\"]},\"project:/contracts/SafeMath.sol\":{\"keccak256\":\"0x8ca6870bea5eb6f7dae440f927ba9ec9a98da21bab9c3ce984021a959efa3852\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://778b218b0e19414b80d9f5b93d78249ad9e6b06846ef40a1bec3e3528f6659c3\",\"dweb:/ipfs/QmNutPC5kg4W8HnzXVpJ2KS5ykqQCi75MAtr4XJpE7ugE8\"]},\"project:/contracts/TipOff.sol\":{\"keccak256\":\"0x621a7f348723a30db2703ffb44dc1cf1f9b53dc76949e5acf797a3d828e493b6\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://9bd50738aaa914966604a31a2a77559e8d9fc48ec11c831f6ded09a878e90a02\",\"dweb:/ipfs/Qme8MB4T7Ytohpp6MRHEt5ADxghPcp8pQFrKAFMf3nbnGB\"]},\"project:/contracts/TipToken.sol\":{\"keccak256\":\"0xe3aaf5deaddf187f2c74d35cdcf3992c4ab49951103549319d0fea062e8d6fed\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://c5cc2c8ca2995328853717eff350e47c01935f8f02c85fb6afd0651b63c977e2\",\"dweb:/ipfs/QmaLM2VDWcpfLR8jwD3isoMrZ1xX8TdeUr8SeFaYCknwGh\"]}},\"version\":1}",
@@ -21521,13 +21589,7 @@
     "version": "0.8.0+commit.c7dfd78e.Emscripten.clang"
   },
   "networks": {
-    "5777": {
-      "events": {},
-      "links": {},
-      "address": "0x5d6Af4cD8e6448D00020cf4D7683038A321BB8bE",
-      "transactionHash": "0x182aced54995511f9721cc435540eaec3eb7e4117cab81ab7292e245b2c29033"
-    },
-    "11155111": {
+    "534351": {
       "events": {
         "0x5845892132946850460bff5a0083f71031bc5bf9aadcd40f1de79423eac9b10b": {
           "anonymous": false,
@@ -21581,7 +21643,7 @@
         }
       },
       "links": {},
-      "address": "0xb5A624aC29CB012cb57760686A80ADF1DA433cF2",
+      "address": "0xFC949B8c008A9EB4d242fB12DdEaF1b80C13c174",
       "transactionHash": "0x2b8194af5a56e62e39717f90ab3e22cae8019c6a52fadc385120f36153a9352d"
     }
   },
