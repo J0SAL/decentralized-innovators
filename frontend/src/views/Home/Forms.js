@@ -1,8 +1,8 @@
 import React, { useState, useContext, useEffect } from "react";
 // react plugin used to create switch buttons
-import Switch from "react-bootstrap-switch";
+// import Switch from "react-bootstrap-switch";
 // plugin that creates slider
-import Slider from "nouislider";
+// import Slider from "nouislider";
 import Datetime from "react-datetime";
 import { checkTip } from "./FormsApi.js";
 import PlacesSearchBar from "../PlacesSearchBar/PlacesSearchBar.js";
@@ -13,27 +13,43 @@ import { useNavigate } from "react-router-dom";
 import moment from "moment";
 
 // reactstrap components
-import {
-  Label,
-  FormGroup,
-  Input,
-  Form,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
-  Container,
-  Row,
-  Col,
-  Button,
-  ButtonGroup,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  Alert,
-} from "reactstrap";
+// import {
+//   Label,
+//   FormGroup,
+//   Input,
+//   Form,
+//   InputGroupAddon,
+//   InputGroupText,
+//   InputGroup,
+//   Container,
+//   Row,
+//   Col,
+//   Button,
+//   ButtonGroup,
+//   DropdownToggle,
+//   DropdownMenu,
+//   DropdownItem,
+//   UncontrolledDropdown,
+//   Alert,
+// } from "reactstrap";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import BlockchainContext from "../../context/BlockChainContext";
-
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 // core components
 import IndexNavbar from "../../components/Navbars/IndexNavbar.js";
 import IndexHeader from "../../components/Headers/IndexHeader.js";
@@ -41,6 +57,8 @@ import DarkFooter from "../../components/Footers/DarkFooter.js";
 
 // sections for this page
 import Images from "../index-sections/Images.js";
+
+const defaultTheme = createTheme();
 
 function Index() {
   const { web3, accounts, contract } = useContext(BlockchainContext);
@@ -166,6 +184,108 @@ function Index() {
       />
       {/* Same as */}
       <ToastContainer />
+
+      <ThemeProvider theme={defaultTheme}>
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
+          <Box
+            sx={{
+              marginTop: 8,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Electronic Form to Submit Tips
+            </Typography>
+            <Box
+              component="form"
+              noValidate
+              onSubmit={handleSubmit}
+              sx={{ mt: 3 }}
+            >
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    id="crimedesc"
+                    label="Crime Description"
+                    name="crimedesc"
+                    autoComplete="Crime Description"
+                    placeholder="Give a description of the crime you witnessed..."
+                    onChange={(e) => {
+                      setTipData(e.target.value);
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <InputLabel id="demo-select-small-label">
+                    Crime Category
+                  </InputLabel>
+                  <Select
+                    labelId="demo-select-small-label"
+                    id="demo-select-small"
+                    value={subcat}
+                    label="Crime Category"
+                    onChange={(e) => {
+                      setSubcat(e.target.value);
+                    }}
+                  >
+                    <MenuItem value="">
+                      <em>None</em>
+                    </MenuItem>
+                    <MenuItem value={"Rape"}>Rape</MenuItem>
+                    <MenuItem value={"Money Laundering"}>
+                      Money Laundering
+                    </MenuItem>
+                    <MenuItem value={"Murder"}>Murder</MenuItem>
+                    <MenuItem value={"Drug Trafficking"}>
+                      Drug Trafficking
+                    </MenuItem>
+                    <MenuItem value={"Acid Attacks"}>Acid Attacks</MenuItem>
+                    <MenuItem value={"Human Trafficking"}>
+                      Human Trafficking
+                    </MenuItem>
+                    <MenuItem value={"Bribery"}>Bribery</MenuItem>
+                    <MenuItem value={"Child Labour"}>Child Labour</MenuItem>
+                    <MenuItem value={"Smuggling"}>Smuggling</MenuItem>
+                    <MenuItem value={"Tax Fraud"}>Tax Fraud</MenuItem>
+                  </Select>
+                </Grid>
+                <Grid item xs={12}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox value="allowExtraEmails" color="primary" />
+                    }
+                    label="I want to receive inspiration, marketing promotions and updates via email."
+                  />
+                </Grid>
+              </Grid>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Sign Up
+              </Button>
+              <Grid container justifyContent="flex-end">
+                <Grid item>
+                  <Link href="#" variant="body2">
+                    Already have an account? Sign in
+                  </Link>
+                </Grid>
+              </Grid>
+            </Box>
+          </Box>
+          <Copyright sx={{ mt: 5 }} />
+        </Container>
+      </ThemeProvider>
 
       <div className="wrapper">
         {/* <IndexHeader /> */}
