@@ -13,9 +13,9 @@ import Index from "./views/Index.js";
 import Web3 from "web3";
 import TipOff from "./abis/TipOff.json";
 import BlockchainContext from "./context/BlockChainContext";
-
+import Forms from "./views/Home/Forms.js";
 import { AnonAadhaarProvider } from "anon-aadhaar-react";
-import  UserOnBoard  from "./views/UserOnBoard/UserOnBoard.js";
+import UserOnBoard from "./views/UserOnBoard/UserOnBoard.js";
 // import Map from "./views/Mao/Map-1.js";
 
 const getWeb3 = async () => {
@@ -52,8 +52,7 @@ const App = () => {
   const [web3, setWeb3] = useState(undefined);
   const [accounts, setAccounts] = useState([]);
   const [contract, setContract] = useState();
-  console.log("In app");
-
+  
   const app_id = process.env.REACT_APP_APP_ID || "";
 
   const crimeData = {
@@ -404,82 +403,85 @@ const App = () => {
       console.log("contract - ", contract);
     };
     init();
-  }, [accounts, contract]);
+  }, []);
 
   return (
     <BlockchainContext.Provider value={{ web3, accounts, contract }}>
-        
-        <Routes>
-          <Route
-            path="/index"
-            element={
-              <Index web3={web3} accounts={accounts} contract={contract} />
-            }
-          />
+      <Routes>
+        <Route
+          path="/index"
+          element={
+            <Index web3={web3} accounts={accounts} contract={contract} />
+          }
+        />
 
-          {/* <Route
+        {/* <Route
             path="/nucleo-icons"
             render={(props) => <NucleoIcons {...props} />}
           /> */}
-          <Route path="/landing-page" element={<LandingPage />} />
+        <Route path="/landing-page" element={<LandingPage />} />
 
-          <Route
-            path="/user-onboard"
-            element={
-              <AnonAadhaarProvider _appId={app_id} _isWeb={false}>
-      
+        <Route
+          path="/user-onboard"
+          element={
+            <AnonAadhaarProvider _appId={app_id} _isWeb={false}>
               <UserOnBoard
                 web3={web3}
                 accounts={accounts}
                 contract={contract}
               />
-              </AnonAadhaarProvider>
-            }
-          />
+            </AnonAadhaarProvider>
+          }
+        />
 
-          {/* <Route
+        {/* <Route
             path="/profile-page"
             render={(props) => <ProfilePage {...props} />}
           /> */}
 
-          {/* <Route
+        {/* <Route
             path="/login-page"
             render={(props) => <LoginPage {...props} />}
           /> */}
 
-          {/* <Route
+        {/* <Route
             path="/govportal"
             render={(props) => <GovPortal {...props} />}
           /> */}
 
-          {/* <Route path="/mental" render={(props) => <Mental {...props} />} /> */}
-          {/* <Route path="/home" render={(props) => <Home {...props} />} /> */}
-          {/* <Route path="/form" render={(props) => <Forms {...props} />} /> */}
+        {/* <Route path="/mental" render={(props) => <Mental {...props} />} /> */}
+        {/* <Route path="/home" render={(props) => <Home {...props} />} /> */}
+        <Route
+          path="/form"
+          element={
+            <Forms web3={web3} accounts={accounts} contract={contract} />
+          }
+        />
 
-          {/* <Route
+        {/* <Route
             path="/user-login-page"
             render={(props) => <UserLoginPage {...props} />}
           /> */}
 
-          {/* <Route
+        {/* <Route
             path="/crime-hotspot"
             render={(props) => <Map crimeData={crimeData} />}
           /> */}
 
-          {/* <Route
+        {/* <Route
             path="/police-login-page"
             render={(props) => <PoliceLoginPage {...props} />}
           /> */}
 
-          {/* <Route
+        {/* <Route
             path="/dashboard"
             render={(props) => <Dashboard {...props} />}
           /> */}
 
-          {/* <Route path="/placessearchbar" component={PlacesSearchBar} /> */}
+        {/* <Route path="/placessearchbar" component={PlacesSearchBar} /> */}
 
-          <Route from="/" to="/home" />
-        </Routes>
+        <Route from="/" to="/home" />
+      </Routes>
     </BlockchainContext.Provider>
   );
 };

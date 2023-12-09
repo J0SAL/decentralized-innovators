@@ -9,7 +9,7 @@ import PlacesSearchBar from "../PlacesSearchBar/PlacesSearchBar.js";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import moment from "moment";
 
 // reactstrap components
@@ -35,15 +35,16 @@ import {
 import BlockchainContext from "../../context/BlockChainContext";
 
 // core components
-import IndexNavbar from "components/Navbars/IndexNavbar.js";
-import IndexHeader from "components/Headers/IndexHeader.js";
-import DarkFooter from "components/Footers/DarkFooter.js";
+import IndexNavbar from "../../components/Navbars/IndexNavbar.js";
+import IndexHeader from "../../components/Headers/IndexHeader.js";
+import DarkFooter from "../../components/Footers/DarkFooter.js";
 
 // sections for this page
 import Images from "../index-sections/Images.js";
 
-function Index() {
-  const { web3, accounts, contract } = useContext(BlockchainContext);
+function Index( {web3, accounts, contract} ) {
+  
+  useContext(BlockchainContext);
 
   const [leftFocus, setLeftFocus] = React.useState(false);
   const [rightFocus, setRightFocus] = React.useState(false);
@@ -55,7 +56,7 @@ function Index() {
   const [longitude, setLongitude] = useState("");
   const [date, setDate] = useState(new Date());
 
-  let history = useHistory();
+  const navigate  = useNavigate();
 
   function sleep(milliseconds) {
     return new Promise((resolve) => setTimeout(resolve, milliseconds));
@@ -107,7 +108,7 @@ function Index() {
   const submitTip = async () => {
     try {
       // const tipid = 1; //only till now, but after django will generate
-      console.log("Amount of token to stake=", date);
+      console.log("Amount of token to stake=", amt);
       const tip = {};
       tip["crime_subcategory"] = subcat;
       tip["crime_description"] = tipData;
@@ -120,27 +121,30 @@ function Index() {
       // tip["walletaddresshash"] = accounts[0];
       toast.loading("Submitting!", { closeOnClick: true });
       axios
-        .post("http://localhost:8000/tip_data/", {
-          data: JSON.stringify(tip),
+        .post("http://127.0.0.1:5000/detectSpam", {
+          "chunk": tipData,
         })
         .then(async (response) => {
           // return response.data.ID;
-          if (response.data.message) {
+          console.log("Response -- ", response.data.Class)
+          if (response.data.Class === 2 || response.data.Class === 3) {
             spamtext();
             await sleep(5050);
-            history.push("/home");
+            navigate("/form");
           } else {
-            console.log("response data ID : ", response.data.ID);
-            await contract.methods
-              .tipoff(0, response.data.ID, amt, accounts[0])
-              .send({ from: accounts[0] })
-              .then(async (result) => {
-                // alert("Tip submitted successfully");
-                notify();
-                await sleep(5050);
-                history.push("/home");
-                console.log("this us the result : ", result);
-              });
+            
+            // await contract.methods
+            //   .tipoff(0, response.data.Class, amt, accounts[0])
+            //   .send({ from: accounts[0] })
+            //   .then(async (result) => {
+            //     // alert("Tip submitted successfully");
+            //     notify();
+            //     await sleep(5050);
+            //     history.push("/index");
+            //     console.log("this us the result : ", result);
+            //   });
+
+            navigate("/index");
           }
         });
     } catch (err) {
