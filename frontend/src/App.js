@@ -16,6 +16,7 @@ import BlockchainContext from "./context/BlockChainContext";
 
 import { AnonAadhaarProvider } from "anon-aadhaar-react";
 import UserOnBoard from "./views/UserOnBoard/UserOnBoard.js";
+import { POLICE_ADDRESS } from "./assets/constants/Constants.js";
 // import Map from "./views/Mao/Map-1.js";
 
 const getWeb3 = async () => {
@@ -392,11 +393,17 @@ const App = () => {
   };
 
   useEffect(() => {
+    if (accounts[0] === POLICE_ADDRESS) {
+      console.log("Police found");
+      return;
+    }
+  }, [accounts]);
+
+  useEffect(() => {
     init();
   }, []);
 
-  console.log("contract address : ", contract);
-  console.log("account address: ", accounts);
+  console.log("contract address : ", contract?._address);
   console.log("account address: ", accounts[0]);
   return (
     <BlockchainContext.Provider value={{ web3, accounts, contract }}>
