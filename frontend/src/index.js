@@ -1,17 +1,26 @@
+// index.js or index.tsx
 import React from "react";
-import ReactDOM from "react-dom";
-import { BrowserRouter } from "react-router-dom";
-
+import { createRoot } from "react-dom/client";
 import App from "./App";
-import { AnonAadhaarProvider } from "anon-aadhaar-react";
+import { BrowserRouter } from "react-router-dom";
+import { LightNodeProvider } from "@waku/react";
+const NODE_OPTIONS = { defaultBootstrap: true };
+// Ensure the root element exists in your HTML file
+const rootElement = document.getElementById("root");
 
-const app_id = process.env.REACT_APP_APP_ID || "";
+if (!rootElement) {
+  throw new Error("Root element with ID 'root' not found in the document");
+}
 
-ReactDOM.render(
-  <AnonAadhaarProvider _appId={app_id} _isWeb={false}>
+// Use createRoot from "react-dom/client"
+const root = createRoot(rootElement);
+
+root.render(
+  <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <LightNodeProvider options={NODE_OPTIONS}>
+        <App />
+      </LightNodeProvider>
     </BrowserRouter>
-  </AnonAadhaarProvider>,
-  document.getElementById("root")
+  </React.StrictMode>
 );

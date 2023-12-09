@@ -1,6 +1,11 @@
 import IndexHeader from "../../components/Headers/IndexHeader";
 import IndexNavbar from "../../components/Navbars/IndexNavbar";
-import { LogInWithAnonAadhaar, useAnonAadhaar } from "anon-aadhaar-react";
+import {
+  AnonAadhaarProvider,
+  useAnonAadhaar,
+  LogInWithAnonAadhaar,
+  AnonAadhaarProof,
+} from "anon-aadhaar-react";
 import { useNavigate } from "react-router";
 import randomstring from "randomstring";
 import { sha256 } from "js-sha256";
@@ -71,7 +76,23 @@ function UserOnBoard({ web3, accounts, contract }) {
             }}
           >
             <center>
-              <LogInWithAnonAadhaar />
+              <AnonAadhaarProvider
+                _appId={process.env.REACT_APP_APP_ID || ""}
+                _testing={false}
+              >
+                <LogInWithAnonAadhaar />
+                <p>{anonAadhaar?.status}</p>
+
+                {/* Render the proof if generated and valid */}
+                {anonAadhaar?.status === "logged-in" && (
+                  <>
+                    <p>✅ Proof is valid</p>
+                    <AnonAadhaarProof
+                      code={JSON.stringify(anonAadhaar.pcd, null, 2)}
+                    />
+                  </>
+                )}
+              </AnonAadhaarProvider>
             </center>
           </div>
         </div>

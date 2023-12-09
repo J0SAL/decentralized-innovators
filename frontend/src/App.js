@@ -21,6 +21,7 @@ import Index from "./views/Index.js";
 import Web3, { ERR_INVALID_RESPONSE } from "web3";
 import TipOff from "./abis/TipOff.json";
 import BlockchainContext from "./context/BlockChainContext";
+import Waku from "./views/Waku/Waku.js";
 
 import { AnonAadhaarProvider } from "anon-aadhaar-react";
 import UserOnBoard from "./views/UserOnBoard/UserOnBoard.js";
@@ -65,7 +66,6 @@ const App = () => {
 
   const navigate = useNavigate();
   const app_id = process.env.REACT_APP_APP_ID || "";
-
   const crimeData = {
     crime_data: [
       {
@@ -400,14 +400,14 @@ const App = () => {
       const abi = TipOff.abi;
       TipOffcon = new tempWeb3.eth.Contract(abi, networkdata.address);
 
-      await setContract(TipOffcon);
-      await setWeb3(tempWeb3);
-      await setAccounts(tempAccounts);
+      setContract(TipOffcon);
+      setWeb3(tempWeb3);
+      setAccounts(tempAccounts);
     }
   };
 
   const checkIfuserAlreadyregistered = async () => {
-    let res = await contract.methods
+    let res = await contract?.methods
       .checkIfAlreadyRegistered()
       .send({ from: accounts[0] });
     return res;
@@ -415,13 +415,15 @@ const App = () => {
 
   //extend thi useeffec and set state
   useEffect(() => {
-    if (accounts[0] === POLICE_ADDRESS) {
-      console.log("Police found");
-      return;
-    } else if (checkIfuserAlreadyregistered()) {
-      navigate("/mental");
-    } else {
-      navigate("/user-onboard");
+    if (accounts.length) {
+      if (accounts[0] === POLICE_ADDRESS) {
+        console.log("Police found");
+        return;
+      } else if (checkIfuserAlreadyregistered()) {
+        navigate("/mental");
+      } else {
+        navigate("/user-onboard");
+      }
     }
   }, [accounts]);
 
@@ -460,10 +462,7 @@ const App = () => {
           }
         />
 
-        {/* <Route
-            path="/profile-page"
-            render={(props) => <ProfilePage {...props} />}
-          /> */}
+        <Route path="/chat" element={<Waku />} />
 
         {/* <Route
             path="/login-page"
