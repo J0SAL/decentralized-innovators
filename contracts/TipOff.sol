@@ -75,4 +75,75 @@ contract TipOff is EIP712MetaTransaction("TipOff", "1") {
             return true;
         }
     }
+
+    function tipoff(
+        uint instance,
+        string memory tipid,
+        uint tipamt,
+        address payable tipper,
+        address police
+    ) public payable {
+        require(msg.sender == approving_police, "not a police"); // temp
+        Tipof memory tipdata = Tipof(tipid, 0, tipper);
+        history[tipid] = tipdata;
+        address contractadd = address(this);
+        tokencontractinstances[instance].transfer_From(
+            tipper,
+            contractadd,
+            tipamt
+        );
+        userToTips[tipper].push(tipdata);
+        policeToTips[police].push(tipdata);
+        emit transferred(tipper, contractadd, tipamt);
+    }
+
+    function rejectTip(
+        uint instance,
+        string memory tipid,
+        uint tipamt
+    ) public payable {
+        require(msg.sender == approving_police, "not a police");
+        address contractadd = address(this);
+        tokencontractinstances[instance].transfer_From(
+            contractadd,
+            admin,
+            tipamt
+        );
+
+        history[tipid].tipstatus = 2;
+        emit transferred(contractadd, admin, tipamt);
+    }
+
+    function approveTip(
+        uint instance,
+        string memory tipid,
+        uint tipamt
+    ) public payable {
+        require(msg.sender == approving_police, "not a police");
+        Tipof memory tipdata = history[tipid];
+        address contractadd = address(this);
+
+        tokencontractinstances[instance].transfer_From(
+            contractadd,
+            tipdata.tipsender,
+            tipamt + 1
+        );
+
+        history[tipid].tipstatus = 1;
+        emit transferred(contractadd, tipdata.tipsender, tipamt + 1);
+    }
+
+    function getTipsByPoliceStation(
+        address police
+    ) public view returns (Tipof[] memory) {
+        // TODO
+        Tipof[] memory tips = userToTips[police];
+        return tips;
+    }
+
+    function getTipsByUser() public view returns (Tipof[] memory) {
+        // TODO
+        Tipof[] memory tips = userToTips[msg.sender];
+        return tips;
+    }
 }
