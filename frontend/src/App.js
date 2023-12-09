@@ -6,6 +6,13 @@ import "./assets/scss/now-ui-kit.scss?v=1.5.0";
 import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import LandingPage from "./views/examples/LandingPage.js";
+// import LoginPage from "views/examples/LoginPage.js";
+// import ProfilePage from "views/examples/ProfilePage.js";
+// import GovPortal from "views/GovPortal/GovPortal.js";
+import Forms from "./views/Home/Forms.js";
+// import Home from "views/Home/Home.js";
+// import Mental from "views/Home/Mental.js";
+// import Deposits from "views/Dashboard/Deposits";
 
 import Index from "./views/Index.js";
 // import NucleoIcons from "views/NucleoIcons.js";
@@ -381,6 +388,10 @@ const App = () => {
 
     window.ethereum.on("accountsChanged", listener);
 
+    console.log("tempWeb3", tempWeb3);
+    console.log("tempWeb3", tempAccounts);
+    console.log("networkId", networkId);
+
     const networkdata = TipOff.networks[networkId];
     if (networkdata) {
       const abi = TipOff.abi;
@@ -408,6 +419,12 @@ const App = () => {
   return (
     <BlockchainContext.Provider value={{ web3, accounts, contract }}>
       <Routes>
+        <Route
+          path="/index"
+          element={
+            <Index web3={web3} accounts={accounts} contract={contract} />
+          }
+        />
         <Route
           path="/index"
           element={
