@@ -15,7 +15,7 @@ import { Link, Button } from "@mui/material";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import Orders from "./Orders";
 import axiosInstance from "../../AxiosInstance";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Copyright(props) {
   return (
@@ -84,8 +84,9 @@ const Drawer = styled(MuiDrawer, {
 const mdTheme = createTheme();
 
 function DashboardContent() {
+  console.log("in dashboard Content");
   const [open, setOpen] = React.useState(true);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const logout = () => {
     axiosInstance.post("logout/").then((res) => {
@@ -93,7 +94,7 @@ function DashboardContent() {
       localStorage.removeItem("username");
       localStorage.removeItem("latitude");
       localStorage.removeItem("longitude");
-      history.push("/police-login-page");
+      navigate("/index");
     });
   };
 
@@ -133,11 +134,15 @@ function DashboardContent() {
               Welcome {localStorage.getItem("username")}
             </Typography>
             <Button
-              onClick={() => history.push("/crime-hotspot")}
-              style={{ color: "white", backgroundColor: "#051367" }}
+              onClick={() => navigate("/crime-hotspot")}
+              style={{
+                color: "white",
+                backgroundColor: "#051367",
+              }}
             >
               Crime Hotspot
             </Button>
+
             <Button
               onClick={logout}
               style={{ color: "white", backgroundColor: "#051367" }}
@@ -227,6 +232,13 @@ function DashboardContent() {
   );
 }
 
-export default function Dashboard() {
+function Dashboard({ policeAccess, web3, accounts, contract }) {
+  console.log("Dashboard");
+
+  if (!policeAccess) {
+    return <DashboardContent />;
+  }
   return <DashboardContent />;
 }
+
+export default Dashboard;

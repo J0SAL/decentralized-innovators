@@ -26,6 +26,7 @@ import Waku from "./views/Waku/Waku.js";
 import { AnonAadhaarProvider } from "anon-aadhaar-react";
 import UserOnBoard from "./views/UserOnBoard/UserOnBoard.js";
 import { POLICE_ADDRESS } from "./assets/constants/Constants.js";
+import Dashboard from "./views/Dashboard/Dashboard.js";
 // import Map from "./views/Mao/Map-1.js";
 
 const getWeb3 = async () => {
@@ -63,6 +64,7 @@ const App = () => {
   const [accounts, setAccounts] = useState([]);
   const [contract, setContract] = useState();
   const [redirectToOnboard, setUserOnboard] = useState();
+  const [policeAccess, setPoliceAccess] = useState(false);
 
   const navigate = useNavigate();
   const app_id = process.env.REACT_APP_APP_ID || "";
@@ -407,24 +409,26 @@ const App = () => {
   };
 
   const checkIfuserAlreadyregistered = async () => {
-    let res = await contract?.methods
-      .checkIfAlreadyRegistered()
-      .send({ from: accounts[0] });
+    let res = await contract?.methods.checkIfAlreadyRegistered().call();
+    console.log("check user : ", res);
     return res;
   };
 
   //extend thi useeffec and set state
   useEffect(() => {
-    if (accounts.length) {
-      if (accounts[0] === POLICE_ADDRESS) {
-        console.log("Police found");
-        return;
-      } else if (checkIfuserAlreadyregistered()) {
-        navigate("/mental");
-      } else {
-        navigate("/user-onboard");
-      }
-    }
+    // (async () => {
+    //   if (accounts.length) {
+    //     if (accounts[0] === POLICE_ADDRESS) {
+    //       navigate("/police-dashboard");
+    //       return;
+    //     } else if (await checkIfuserAlreadyregistered()) {
+    //       navigate("/mental");
+    //       return;
+    //     } else {
+    //       navigate("/user-onboard");
+    //     }
+    //   }
+    // })();
   }, [accounts]);
 
   useEffect(() => {
@@ -462,7 +466,40 @@ const App = () => {
           }
         />
 
-        <Route path="/chat" element={<Waku />} />
+        <Route
+          path="/police-dashboard"
+          element={
+            <Dashboard
+              policeAccess={policeAccess}
+              web3={web3}
+              accounts={accounts}
+              contract={contract}
+            />
+          }
+          action={(account) => {
+            init();
+            setPoliceAccess(true);
+          }} //here check if user registred
+        />
+
+        <Route
+          path="/chat"
+          element={
+            <Waku topicAddress={"xyz123"} userAddressProp={accounts[0]} />
+          }
+        />
+
+        <Route
+          path="/user-dashboard"
+          element={
+            <Dashboard
+              policeAccess={false}
+              web3={web3}
+              accounts={accounts}
+              contract={contract}
+            />
+          }
+        />
 
         {/* <Route
             path="/login-page"

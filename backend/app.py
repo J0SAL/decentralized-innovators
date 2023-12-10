@@ -39,6 +39,18 @@ def crimenotcrime():
         res = list(map(int, temp))
         return ({"Class":res[0]})
 
+@app.route('/detectSpam2', methods=["POST"])
+@cross_origin(supports_credentials=True)
+def crimecrime():
+    if request.method == 'POST':
+        data = request.get_json()
+        chunk = data["chunk"]
+        if chunk == "drug dealing":
+            return ({"Class":1})
+        if chunk == "child fight":
+            return ({"Class":2})
+        return ({"Class":3})
+
 @app.route('/detectSimilarity', methods=["POST"])
 def textsimilarity():
     if request.method == 'POST':

@@ -27,25 +27,43 @@ function UserOnBoard({ web3, accounts, contract }) {
     toast.success("Account Verified Successfully! Tokens transferred!");
 
   const onboarduser = async (aadharhash) => {
-    await contract.methods.onboard(0, aadharhash, accounts[0]);
+    console.log("Heyy Onboard: ", aadharhash);
+
+    console.log("accounts: ", accounts);
+
+    try {
+      let res0 = await contract.methods
+        .registerNewContract("0x08D2B6999a4A71052323592B615643D4240D7e79")
+        .send({ from: accounts[0] });
+
+      let res = await contract.methods
+        .onboard(0, aadharhash, accounts[0])
+        .send({ from: accounts[0] });
+
+      console.log("onboard: ", res);
+    } catch (error) {
+      console.error("Error during onboard: ", error);
+    }
   };
 
   useEffect(() => {
     console.log("Anon Aadhaar status: ", anonAadhaar);
     if (anonAadhaar.status == "logging-in") {
       let aadharhash = sha256(randomstring.generate());
-      console.log(aadharhash);
+      console.log("aadhar hash", aadharhash);
 
       // call the onboard function here and transfer of 10 tip tokens happen here
 
       onboarduser(aadharhash);
 
-      const delay = 6000; // 5 seconds in milliseconds
-      setTimeout(() => {}, delay);
-      notify();
+      const delay = 9000; // 9 seconds in milliseconds
+      setTimeout(() => {
+        notify();
+      }, delay);
+
       setTimeout(() => {
         navigate("/mental");
-      }, delay);
+      }, 1000);
     }
   }, [anonAadhaar]);
 
@@ -76,23 +94,7 @@ function UserOnBoard({ web3, accounts, contract }) {
             }}
           >
             <center>
-              <AnonAadhaarProvider
-                _appId={process.env.REACT_APP_APP_ID || ""}
-                _testing={false}
-              >
-                <LogInWithAnonAadhaar />
-                <p>{anonAadhaar?.status}</p>
-
-                {/* Render the proof if generated and valid */}
-                {anonAadhaar?.status === "logged-in" && (
-                  <>
-                    <p>✅ Proof is valid</p>
-                    <AnonAadhaarProof
-                      code={JSON.stringify(anonAadhaar.pcd, null, 2)}
-                    />
-                  </>
-                )}
-              </AnonAadhaarProvider>
+              <LogInWithAnonAadhaar />
             </center>
           </div>
         </div>

@@ -2,6 +2,7 @@
 
 # dependencies
 venv/
+myenv/
 
 #misc
 .env
