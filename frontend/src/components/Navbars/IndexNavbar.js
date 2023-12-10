@@ -145,7 +145,7 @@ function IndexNavbar() {
           >
             <Nav navbar>
               <NavItem>
-                <Link to="/crime-hotspot">
+                <Link to="/form">
                   <NavLink
                     style={{
                       color: "black",
@@ -166,7 +166,7 @@ function IndexNavbar() {
                     //   fontSize: "18px",
                     // }}
                     >
-                      &nbsp;View Hotspot
+                      &nbsp; Submit Complaint
                     </p>
                   </NavLink>
                 </Link>
@@ -174,27 +174,6 @@ function IndexNavbar() {
 
               <NavItem>
                 <Link to="/user-onboard">
-                <NavLink
-                  style={{
-                    color: "black",
-                    fontFamily: "sans-serif",
-                    fontWeight: "bold",
-                    fontSize: "18px",
-                  }}
-                  href="#pablo"
-                  // onClick={(e) => {
-                  //   e.preventDefault();
-                  //   window.open("http://localhost:3001/user-onboard");
-                  // }}
-                >
-                  <p>User Onboard</p>
-                </NavLink>
-
-                </Link>
-              </NavItem>
-
-              <NavItem>
-                <Link to="/police-login-page">
                   <NavLink
                     style={{
                       color: "black",
@@ -205,18 +184,42 @@ function IndexNavbar() {
                     href="#pablo"
                     // onClick={(e) => {
                     //   e.preventDefault();
+                    //   window.open("http://localhost:3001/user-onboard");
                     // }}
                   >
-                    <p
-                    // style={{
-                    //   color: "black",
-                    //   fontFamily: "sans-serif",
-                    //   fontWeight: "bold",
-                    //   fontSize: "18px",
-                    // }}
-                    >
-                      &nbsp;Police Login
-                    </p>
+                    <p>User Onboard</p>
+                  </NavLink>
+                </Link>
+              </NavItem>
+
+              <NavItem>
+                <Link to="/mental">
+                  <NavLink
+                    style={{
+                      color: "black",
+                      fontFamily: "sans-serif",
+                      fontWeight: "bold",
+                      fontSize: "18px",
+                    }}
+                    href="#pablo"
+                  >
+                    <p>&nbsp; Captcha</p>
+                  </NavLink>
+                </Link>
+              </NavItem>
+
+              <NavItem>
+                <Link to="/police-dashboard">
+                  <NavLink
+                    style={{
+                      color: "black",
+                      fontFamily: "sans-serif",
+                      fontWeight: "bold",
+                      fontSize: "18px",
+                    }}
+                    href="#pablo"
+                  >
+                    <p>&nbsp; Police Dashboard</p>
                   </NavLink>
                 </Link>
               </NavItem>

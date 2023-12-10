@@ -16,6 +16,7 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import Orders from "./Orders";
 import axiosInstance from "../../AxiosInstance";
 import { useNavigate } from "react-router-dom";
+import IndexNavbar from "../../components/Navbars/IndexNavbar";
 
 function Copyright(props) {
   return (
@@ -106,56 +107,7 @@ function DashboardContent() {
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
-        <AppBar position="absolute" open={open}>
-          <Toolbar
-            sx={{
-              pr: "24px", // keep right padding when drawer closed
-            }}
-          >
-            {/* <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="open drawer"
-              onClick={toggleDrawer}
-              sx={{
-                marginRight: "36px",
-                ...(open && { display: "none" }),
-              }}
-            >
-              <MenuIcon />
-            </IconButton> */}
-            <Typography
-              component="h1"
-              variant="h6"
-              color="inherit"
-              noWrap
-              sx={{ flexGrow: 1 }}
-            >
-              Welcome {localStorage.getItem("username")}
-            </Typography>
-            <Button
-              onClick={() => navigate("/crime-hotspot")}
-              style={{
-                color: "white",
-                backgroundColor: "#051367",
-              }}
-            >
-              Crime Hotspot
-            </Button>
-
-            <Button
-              onClick={logout}
-              style={{ color: "white", backgroundColor: "#051367" }}
-            >
-              Logout
-            </Button>
-            {/* <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton> */}
-          </Toolbar>
-        </AppBar>
+        <IndexNavbar />
         {/* <Drawer variant="permanent" open={open}>
           <Toolbar
             sx={{
