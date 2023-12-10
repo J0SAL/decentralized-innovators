@@ -1,44 +1,16 @@
 import React, { useState, useContext, useEffect } from "react";
-// react plugin used to create switch buttons
-// import Switch from "react-bootstrap-switch";
-// plugin that creates slider
-// import Slider from "nouislider";
-import Datetime from "react-datetime";
-import { checkTip } from "./FormsApi.js";
 import PlacesSearchBar from "../PlacesSearchBar/PlacesSearchBar.js";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
-
-// reactstrap components
-// import {
-//   Label,
-//   FormGroup,
-//   Input,
-//   Form,
-//   InputGroupAddon,
-//   InputGroupText,
-//   InputGroup,
-//   Container,
-//   Row,
-//   Col,
-//   Button,
-//   ButtonGroup,
-//   DropdownToggle,
-//   DropdownMenu,
-//   DropdownItem,
-//   UncontrolledDropdown,
-//   Alert,
-// } from "reactstrap";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -46,9 +18,9 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import BlockchainContext from "../../context/BlockChainContext";
-import { MenuItem, InputLabel } from "@mui/material";
-import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
 import Switch from "@mui/material/Switch";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -57,16 +29,59 @@ import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { styled } from "@mui/material/styles";
 
-// core components
 import IndexNavbar from "../../components/Navbars/IndexNavbar.js";
-import IndexHeader from "../../components/Headers/IndexHeader.js";
-import DarkFooter from "../../components/Footers/DarkFooter.js";
+import { alpha } from "@mui/material/styles";
 
-// sections for this page
-import Images from "../index-sections/Images.js";
 import lighthouse from "@lighthouse-web3/sdk";
+const StyledContainer = styled(Container)({
+  background: "#f0f0f0",
+  padding: "40px",
+  borderRadius: "10px",
+  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+});
 
-function Forms({ web3, accounts, contract }) {
+const StyledTypography = styled(Typography)({
+  marginBottom: "20px",
+});
+
+const StyledInputLabel = styled(InputLabel)({
+  marginBottom: "8px",
+});
+
+const StyledTextField = styled(TextField)({
+  marginBottom: "16px",
+});
+
+const StyledSelect = styled(Select)({
+  width: "100%",
+  marginBottom: "16px",
+});
+
+const StyledButton = styled(Button)({
+  width: "100%",
+  marginTop: "20px",
+});
+
+const StyledPlacesSearchBar = styled(PlacesSearchBar)(({ theme }) => ({
+  "& .places-search-input": {
+    width: "100%",
+    padding: "12px",
+    fontSize: "16px",
+    border: "1px solid #ccc",
+    borderRadius: "4px",
+    outline: "none",
+    transition: "border-color 0.2s ease",
+    "&:focus": {
+      borderColor: theme.palette.primary.main,
+      boxShadow: `0 0 0 0.2rem ${alpha(theme.palette.primary.main, 0.25)}`,
+    },
+  },
+  "& .places-search-icon": {
+    color: "#555",
+    marginRight: "8px",
+  },
+}));
+function Index() {
   useContext(BlockchainContext);
 
   const defaultTheme = createTheme();
@@ -83,9 +98,8 @@ function Forms({ web3, accounts, contract }) {
     width: 1,
   });
 
-  const [leftFocus, setLeftFocus] = React.useState(false);
-  const [rightFocus, setRightFocus] = React.useState(false);
-  const [selectedFile, setSelectedFile] = useState(null);
+  const { web3, accounts, contract } = useContext(BlockchainContext);
+
   const [amt, setAmt] = useState(null);
   const [tipData, setTipData] = useState("");
   const [subcat, setSubcat] = useState("");
@@ -101,7 +115,7 @@ function Forms({ web3, accounts, contract }) {
     setCrimeLong(long);
   };
 
-  const navigate = useNavigate();
+  let navigate = useNavigate();
 
   function sleep(milliseconds) {
     return new Promise((resolve) => setTimeout(resolve, milliseconds));
@@ -148,10 +162,6 @@ function Forms({ web3, accounts, contract }) {
   };
 
   const uploadFile = async (file) => {
-    // Push file to lighthouse node
-    // Both file and folder are supported by upload function
-    // Third parameter is for multiple files, if multiple files are to be uploaded at once make it true
-    // Fourth parameter is the deal parameters, default null
     const output = await lighthouse.upload(
       file,
       process.env.REACT_APP_LIGHTHOUSE_API_KEY,
@@ -159,15 +169,6 @@ function Forms({ web3, accounts, contract }) {
       null
     );
     console.log("File Status:", output);
-    /*
-      output:
-        data: {
-          Name: "filename.txt",
-          Size: 88000,
-          Hash: "QmWNmn2gr4ZihNPqaC5oTeePsHvFtkWNpjY3cD6Fd5am1w"
-        }
-      Note: Hash in response is CID.
-    */
 
     console.log(
       "Visit at https://gateway.lighthouse.storage/ipfs/" + output.data.Hash
@@ -184,7 +185,6 @@ function Forms({ web3, accounts, contract }) {
 
   const submitTip = async (e) => {
     try {
-      // const tipid = 1; //only till now, but after django will generate
       console.log("Amount of token to stake=", amt);
       e.preventDefault();
       const tip = {};
@@ -199,7 +199,6 @@ function Forms({ web3, accounts, contract }) {
       tip["crimeLat"] = crimeLat;
       tip["crimeLong"] = crimeLong;
       tip["imageFileHash"] = fileHash;
-      // tip["walletaddresshash"] = accounts[0];
 
       toast.loading("Submitting!", { closeOnClick: true });
       axios
@@ -207,7 +206,6 @@ function Forms({ web3, accounts, contract }) {
           chunk: tipData,
         })
         .then(async (response) => {
-          // return response.data.ID;
           console.log("Response -- ", response.data.Class);
           if (response.data.Class === 2 || response.data.Class === 3) {
             spamtext();
@@ -216,16 +214,6 @@ function Forms({ web3, accounts, contract }) {
           } else {
             let resp = await uploadTipDataToLightHouse(tip);
             console.log(resp);
-            // await contract.methods
-            //   .tipoff(0, response.data.Class, amt, accounts[0])
-            //   .send({ from: accounts[0] })
-            //   .then(async (result) => {
-            //     // alert("Tip submitted successfully");
-            //     notify();
-            //     await sleep(5050);
-            //     history.push("/index");
-            //     console.log("this us the result : ", result);
-            //   });
 
             navigate("/index");
           }
@@ -234,7 +222,6 @@ function Forms({ web3, accounts, contract }) {
       console.log(err);
     }
   };
-
   return (
     <>
       <IndexNavbar />
@@ -252,9 +239,8 @@ function Forms({ web3, accounts, contract }) {
       />
       {/* Same as */}
       <ToastContainer />
-
       <ThemeProvider theme={defaultTheme}>
-        <Container
+        <StyledContainer
           component="main"
           maxWidth="sm"
           style={{ marginTop: "100px" }}
@@ -271,9 +257,9 @@ function Forms({ web3, accounts, contract }) {
             <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
               <LockOutlinedIcon />
             </Avatar>
-            <Typography component="h1" variant="h5">
+            <StyledTypography component="h1" variant="h5">
               Electronic Form to Submit Tips
-            </Typography>
+            </StyledTypography>
             <Box
               component="form"
               noValidate
@@ -282,10 +268,10 @@ function Forms({ web3, accounts, contract }) {
             >
               <Grid container spacing={2}>
                 <Grid item xs={12}>
-                  <InputLabel id="demo-select-small-label">
+                  <StyledInputLabel id="demo-select-small-label">
                     Crime Description
-                  </InputLabel>
-                  <TextField
+                  </StyledInputLabel>
+                  <StyledTextField
                     required
                     fullWidth
                     id="crimedesc"
@@ -297,11 +283,10 @@ function Forms({ web3, accounts, contract }) {
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  <InputLabel id="demo-select-small-label">
+                  <StyledInputLabel id="demo-select-small-label">
                     Crime Category
-                  </InputLabel>
-                  <Select
-                    style={{ width: "400px" }}
+                  </StyledInputLabel>
+                  <StyledSelect
                     labelId="demo-select-small-label"
                     id="demo-select-small"
                     value={subcat}
@@ -329,7 +314,7 @@ function Forms({ web3, accounts, contract }) {
                     <MenuItem value={"Child Labour"}>Child Labour</MenuItem>
                     <MenuItem value={"Smuggling"}>Smuggling</MenuItem>
                     <MenuItem value={"Tax Fraud"}>Tax Fraud</MenuItem>
-                  </Select>
+                  </StyledSelect>
                 </Grid>
                 <Grid item xs={12}>
                   <FormControlLabel
@@ -349,14 +334,15 @@ function Forms({ web3, accounts, contract }) {
                   </LocalizationProvider>
                 </Grid>
               </Grid>
-
               <Grid item xs={12}>
-                <InputLabel id="demo-select-small-label">
-                  Crime Occurence Location
-                </InputLabel>
-                <PlacesSearchBar handleCrimeLocation={handleCrimeLocation} />
+                <StyledInputLabel id="demo-select-small-label">
+                  Crime Occurrence Location
+                </StyledInputLabel>
+                {/* Use the styled component for PlacesSearchBar */}
+                <StyledPlacesSearchBar
+                  handleCrimeLocation={handleCrimeLocation}
+                />
               </Grid>
-
               <Grid item xs={12}>
                 <InputLabel id="demo-select-small-label">
                   Number of Tokens Staked
@@ -397,27 +383,19 @@ function Forms({ web3, accounts, contract }) {
                   label="I certify all the information is correct."
                 />
               </Grid>
-
-              <Button
+              <StyledButton
                 type="submit"
-                style={{ width: "100px" }}
                 variant="contained"
-                sx={{ mt: 3, mb: 2 }}
+                startIcon={<CloudUploadIcon />}
               >
                 Submit
-              </Button>
-              {/* <Grid container justifyContent="flex-end">
-                <Grid item>
-                  <Link href="#" variant="body2">
-                    Already have an account? Sign in
-                  </Link>
-                </Grid>
-              </Grid> */}
+              </StyledButton>
             </Box>
           </Box>
-        </Container>
+        </StyledContainer>
       </ThemeProvider>
     </>
   );
 }
-export default Forms;
+
+export default Index;
