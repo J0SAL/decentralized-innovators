@@ -76,23 +76,7 @@ function UserOnBoard({ web3, accounts, contract }) {
             }}
           >
             <center>
-              <AnonAadhaarProvider
-                _appId={process.env.REACT_APP_APP_ID || ""}
-                _testing={false}
-              >
-                <LogInWithAnonAadhaar />
-                <p>{anonAadhaar?.status}</p>
-
-                {/* Render the proof if generated and valid */}
-                {anonAadhaar?.status === "logged-in" && (
-                  <>
-                    <p>✅ Proof is valid</p>
-                    <AnonAadhaarProof
-                      code={JSON.stringify(anonAadhaar.pcd, null, 2)}
-                    />
-                  </>
-                )}
-              </AnonAadhaarProvider>
+              <LogInWithAnonAadhaar />
             </center>
           </div>
         </div>
