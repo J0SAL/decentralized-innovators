@@ -5,7 +5,7 @@ import React from "react";
 import { Container } from "reactstrap";
 // core components
 
-import bg1 from "../../assets/img/natgrid_bg.jpeg";
+import bg1 from "../../assets/img/bg-supreme.jpg";
 
 function IndexHeader() {
   let pageHeader = React.createRef();
