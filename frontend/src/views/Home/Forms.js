@@ -46,8 +46,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import BlockchainContext from "../../context/BlockChainContext";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
+import { MenuItem, InputLabel } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import Switch from "@mui/material/Switch";
@@ -65,28 +64,24 @@ import DarkFooter from "../../components/Footers/DarkFooter.js";
 
 // sections for this page
 import Images from "../index-sections/Images.js";
-
-function Index( {web3, accounts, contract} ) {
-  
-  useContext(BlockchainContext);
 import lighthouse from "@lighthouse-web3/sdk";
 
-const defaultTheme = createTheme();
+function Forms({ web3, accounts, contract }) {
+  useContext(BlockchainContext);
 
-const VisuallyHiddenInput = styled("input")({
-  clip: "rect(0 0 0 0)",
-  clipPath: "inset(50%)",
-  height: 1,
-  overflow: "hidden",
-  position: "absolute",
-  bottom: 0,
-  left: 0,
-  whiteSpace: "nowrap",
-  width: 1,
-});
+  const defaultTheme = createTheme();
 
-function Index() {
-  const { web3, accounts, contract } = useContext(BlockchainContext);
+  const VisuallyHiddenInput = styled("input")({
+    clip: "rect(0 0 0 0)",
+    clipPath: "inset(50%)",
+    height: 1,
+    overflow: "hidden",
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    whiteSpace: "nowrap",
+    width: 1,
+  });
 
   const [leftFocus, setLeftFocus] = React.useState(false);
   const [rightFocus, setRightFocus] = React.useState(false);
@@ -101,13 +96,12 @@ function Index() {
   const [crimeLong, setCrimeLong] = useState("");
   const [fileHash, setFileHash] = useState("");
 
-  const navigate  = useNavigate();
   const handleCrimeLocation = (lat, long) => {
     setCrimeLat(lat);
     setCrimeLong(long);
   };
 
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   function sleep(milliseconds) {
     return new Promise((resolve) => setTimeout(resolve, milliseconds));
@@ -121,10 +115,6 @@ function Index() {
 
   const notify = () =>
     toast.success("Your tip has been successfully submitted!");
-
-  // const loading = ()=>{
-  //   toast.
-  // }
 
   const spamtext = () => {
     toast.warning(
@@ -210,22 +200,22 @@ function Index() {
       tip["crimeLong"] = crimeLong;
       tip["imageFileHash"] = fileHash;
       // tip["walletaddresshash"] = accounts[0];
-      
+
       toast.loading("Submitting!", { closeOnClick: true });
       axios
         .post("http://127.0.0.1:5000/detectSpam", {
-          "chunk": tipData,
+          chunk: tipData,
         })
         .then(async (response) => {
           // return response.data.ID;
-          console.log("Response -- ", response.data.Class)
+          console.log("Response -- ", response.data.Class);
           if (response.data.Class === 2 || response.data.Class === 3) {
             spamtext();
             await sleep(5050);
             navigate("/form");
           } else {
             let resp = await uploadTipDataToLightHouse(tip);
-      console.log(resp);
+            console.log(resp);
             // await contract.methods
             //   .tipoff(0, response.data.Class, amt, accounts[0])
             //   .send({ from: accounts[0] })
@@ -430,5 +420,4 @@ function Index() {
     </>
   );
 }
-
-export default Index;
+export default Forms;

@@ -194,7 +194,7 @@ function IndexNavbar() {
               </NavItem>
 
               <NavItem>
-                <Link to="/police-login-page">
+                <Link to="/police-dashboard">
                   <NavLink
                     style={{
                       color: "black",

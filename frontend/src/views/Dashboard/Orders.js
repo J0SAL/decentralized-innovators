@@ -9,8 +9,8 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
+import { InputLabel } from "@mui/material";
+import { MenuItem } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import axiosInstance from "../../AxiosInstance";
@@ -37,17 +37,17 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
-function createData(sub, desc, wit, occur, created, score) {
-  return { sub, desc, wit, occur, created, score };
-}
+// function createData(sub, desc, wit, occur, created, score) {
+//   return { sub, desc, wit, occur, created, score };
+// }
 
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-];
+// const rows = [
+//   createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
+//   createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
+//   createData("Eclair", 262, 16.0, 24, 6.0),
+//   createData("Cupcake", 305, 3.7, 67, 4.3),
+//   createData("Gingerbread", 356, 16.0, 49, 3.9),
+// ];
 
 export default function Orders() {
   const [subcat, setSubcat] = useState("");
@@ -67,10 +67,28 @@ export default function Orders() {
     form.append("latitude", localStorage.getItem("latitude"));
     form.append("longitude", localStorage.getItem("longitude"));
     form.append("filter", "no");
-    axiosInstance.post("gettips/", form).then((res) => {
-      console.log(res);
-      setTips(res.data);
-    });
+    // axiosInstance.post("gettips/", form).then((res) => {
+    //   console.log(res);
+    //   setTips(res.data);
+    // });
+
+    const mockSetData = [
+      {
+        crime_subcategory: "Murder",
+        crime_description: "Suspect held neighbour at gunpoint",
+        tokens_staked: 5,
+        latitude: 34.0522,
+        longitude: -118.2437,
+        rating: 0,
+        personally_witnessed_or_not: 1,
+        crime_occurrence: "2023-01-15T14:30:00Z",
+        crimeLat: 34.0522,
+        crimeLong: -118.2437,
+        imageFileHash: "abc123def456ghi789",
+      },
+    ];
+
+    setTips(mockSetData);
   }, []);
 
   const handleFilter = async () => {
@@ -82,19 +100,19 @@ export default function Orders() {
 
     if (occur) form.append("occur", occur);
     else form.append("occur", "no");
-    axiosInstance.post("gettips/", form).then((res) => {
-      console.log(res);
-      setTips(res.data);
-    });
+    // axiosInstance.post("gettips/", form).then((res) => {
+    //   console.log(res);
+    //   setTips(res.data);
+    // });
   };
 
   const handleApprove = (key) => {
     console.log(key);
     const form = new FormData();
     form.append("pk", key);
-    axiosInstance.put("gettips/", form).then((res) => {
-      console.log(res);
-    });
+    // axiosInstance.put("gettips/", form).then((res) => {
+    //   console.log(res);
+    // });
   };
 
   return (

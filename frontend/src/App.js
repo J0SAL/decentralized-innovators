@@ -4,14 +4,13 @@ import "./assets/demo/demo.css?v=1.5.0";
 import "./assets/demo/nucleo-icons-page-styles.css?v=1.5.0";
 import "./assets/scss/now-ui-kit.scss?v=1.5.0";
 import React, { useEffect, useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Form } from "react-router-dom";
 import LandingPage from "./views/examples/LandingPage.js";
-// import LoginPage from "views/examples/LoginPage.js";
+// import LoginPage from "views/examples/LoginPage.js";s
 // import ProfilePage from "views/examples/ProfilePage.js";
 // import GovPortal from "views/GovPortal/GovPortal.js";
 // import Home from "views/Home/Home.js";
 // import Mental from "views/Home/Mental.js";
-// import Deposits from "views/Dashboard/Deposits";
 
 import Index from "./views/Index.js";
 // import NucleoIcons from "views/NucleoIcons.js";
@@ -25,6 +24,7 @@ import Waku from "./views/Waku/Waku.js";
 import { AnonAadhaarProvider } from "anon-aadhaar-react";
 import UserOnBoard from "./views/UserOnBoard/UserOnBoard.js";
 import { POLICE_ADDRESS } from "./assets/constants/Constants.js";
+import Dashboard from "./views/Dashboard/Dashboard.js";
 // import Map from "./views/Mao/Map-1.js";
 
 const getWeb3 = async () => {
@@ -61,6 +61,8 @@ const App = () => {
   const [web3, setWeb3] = useState(undefined);
   const [accounts, setAccounts] = useState([]);
   const [contract, setContract] = useState();
+  const [policeAccess, setPoliceAccess] = useState(false);
+
   const app_id = process.env.REACT_APP_APP_ID || "";
   const crimeData = {
     crime_data: [
@@ -424,10 +426,11 @@ const App = () => {
             <Index web3={web3} accounts={accounts} contract={contract} />
           }
         />
+
         <Route
-          path="/index"
+          path="/form"
           element={
-            <Index web3={web3} accounts={accounts} contract={contract} />
+            <Forms web3={web3} accounts={accounts} contract={contract} />
           }
         />
 
@@ -450,7 +453,35 @@ const App = () => {
           }
         />
 
+        <Route
+          path="/police-dashboard"
+          element={
+            <Dashboard
+              policeAccess={policeAccess}
+              web3={web3}
+              accounts={accounts}
+              contract={contract}
+            />
+          }
+          action={(account) => {
+            init();
+            setPoliceAccess(true);
+          }} //here check if user registred
+        />
+
         <Route path="/chat" element={<Waku />} />
+
+        <Route
+          path="/user-dashboard"
+          element={
+            <Dashboard
+              policeAccess={false}
+              web3={web3}
+              accounts={accounts}
+              contract={contract}
+            />
+          }
+        />
 
         {/* <Route
             path="/login-page"
@@ -479,11 +510,6 @@ const App = () => {
         {/* <Route
             path="/police-login-page"
             render={(props) => <PoliceLoginPage {...props} />}
-          /> */}
-
-        {/* <Route
-            path="/dashboard"
-            render={(props) => <Dashboard {...props} />}
           /> */}
 
         {/* <Route path="/placessearchbar" component={PlacesSearchBar} /> */}
