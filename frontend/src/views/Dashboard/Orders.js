@@ -14,6 +14,7 @@ import { MenuItem } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import axiosInstance from "../../AxiosInstance";
+import { useNavigate } from "react-router-dom";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -61,6 +62,8 @@ export default function Orders() {
   const handleChangeoccur = (event) => {
     setOccur(event.target.value);
   };
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const form = new FormData();
@@ -204,6 +207,9 @@ export default function Orders() {
             <StyledTableCell align="right" style={{ fontFamily: "Montserrat" }}>
               Approve
             </StyledTableCell>
+            <StyledTableCell align="right" style={{ fontFamily: "Montserrat" }}>
+              Chat
+            </StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -263,6 +269,21 @@ export default function Orders() {
                       onClick={(e) => handleApprove(row.id)}
                       {...label}
                     />
+                  </StyledTableCell>
+                  <StyledTableCell
+                    align="right"
+                    style={{ fontFamily: "Montserrat" }}
+                  >
+                    <Button
+                      onClick={() => navigate("/chat")}
+                      style={{
+                        color: "white",
+                        backgroundColor: "#051367",
+                      }}
+                    >
+                      {"Chat"}
+                      
+                    </Button>
                   </StyledTableCell>
                 </StyledTableRow>
               ))
