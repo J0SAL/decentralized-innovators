@@ -98,6 +98,7 @@ function Index() {
   });
 
   const { web3, accounts, contract } = useContext(BlockchainContext);
+  const { web3, accounts, contract } = useContext(BlockchainContext);
 
   const [amt, setAmt] = useState(null);
   const [tipData, setTipData] = useState("");
@@ -168,65 +169,64 @@ function Index() {
       null
     );
     console.log("File Status:", output);
-
-    console.log(
-      "Visit at https://gateway.lighthouse.storage/ipfs/" + output.data.Hash
-    );
-    setFileHash(output.data.Hash);
   };
+  console.log(
+    "Visit at https://gateway.lighthouse.storage/ipfs/" + output.data.Hash
+  );
+  setFileHash(output.data.Hash);
+}
 
-  const handleSubmit = async (datahash, tokens_staked) => {
-    let res = await contract.methods
-      .tipoff(0, datahash, tokens_staked, accounts[0], POLICE_ADDRESS)
-      .send({ from: accounts[0] });
-  };
+const handleSubmit = async (datahash, tokens_staked) => {
+  let res = await contract.methods
+    .tipoff(0, datahash, tokens_staked, accounts[0], POLICE_ADDRESS)
+    .send({ from: accounts[0] });
+};
 
-  const uploadTipDataToLightHouse = async (tip) => {
-    const text = JSON.stringify(tip);
-    const apiKey = process.env.REACT_APP_LIGHTHOUSE_API_KEY;
-    const response = await lighthouse.uploadText(text, apiKey);
-    return response.data.Hash;
-  };
+const uploadTipDataToLightHouse = async (tip) => {
+  const text = JSON.stringify(tip);
+  const apiKey = process.env.REACT_APP_LIGHTHOUSE_API_KEY;
+  const response = await lighthouse.uploadText(text, apiKey);
+  return response.data.Hash;
+};
 
-  const submitTip = async (e) => {
-    try {
-      console.log("Amount of token to stake=", amt);
-      e.preventDefault();
-      const tip = {};
-      tip["crime_subcategory"] = subcat;
-      tip["crime_description"] = tipData;
-      tip["tokens_staked"] = amt;
-      tip["latitude"] = latitude;
-      tip["longitude"] = longitude;
-      tip["rating"] = 0;
-      tip["personally_witnessed_or_not"] = 1;
-      tip["crime_occurrence"] = date;
-      tip["crimeLat"] = crimeLat;
-      tip["crimeLong"] = crimeLong;
-      tip["imageFileHash"] = fileHash;
+const submitTip = async (e) => {
+  try {
+    console.log("Amount of token to stake=", amt);
+    e.preventDefault();
+    const tip = {};
+    tip["crime_subcategory"] = subcat;
+    tip["crime_description"] = tipData;
+    tip["tokens_staked"] = amt;
+    tip["latitude"] = latitude;
+    tip["longitude"] = longitude;
+    tip["rating"] = 0;
+    tip["personally_witnessed_or_not"] = 1;
+    tip["crime_occurrence"] = date;
+    tip["crimeLat"] = crimeLat;
+    tip["crimeLong"] = crimeLong;
+    tip["imageFileHash"] = fileHash;
 
-      toast.loading("Submitting!", { closeOnClick: true });
-      axios
-        .post("http://127.0.0.1:5000/detectSpam2", {
-          chunk: tipData,
-        })
-        .then(async (response) => {
-          console.log("Response -- ", response.data.Class);
-          if (response.data.Class === 2 || response.data.Class === 3) {
-            spamtext();
-            await sleep(5050);
-            navigate("/form");
-          } else {
-            let resp = await uploadTipDataToLightHouse(tip);
-            console.log(resp);
-            handleSubmit(resp, tip["tokens_staked"]);
-            navigate("/index");
-          }
-        });
-    } catch (err) {
-      console.log(err);
-    }
-  };
+    toast.loading("Submitting!", { closeOnClick: true });
+    axios
+      .post("http://127.0.0.1:5000/detectSpam2", {
+        chunk: tipData,
+      })
+      .then(async (response) => {
+        console.log("Response -- ", response.data.Class);
+        if (response.data.Class === 2 || response.data.Class === 3) {
+          spamtext();
+          await sleep(5050);
+          navigate("/form");
+        } else {
+          let resp = await uploadTipDataToLightHouse(tip);
+          console.log(resp);
+          handleSubmit(resp, tip["tokens_staked"]);
+          navigate("/index");
+        }
+      });
+  } catch (err) {
+    console.log(err);
+  }
   return (
     <>
       <IndexNavbar />
@@ -401,6 +401,6 @@ function Index() {
       </ThemeProvider>
     </>
   );
-}
+};
 
 export default Index;

@@ -401,6 +401,7 @@
       "inputs": [
         {
           "internalType": "address",
+          "internalType": "address",
           "name": "",
           "type": "address"
         },
@@ -414,7 +415,9 @@
       "outputs": [
         {
           "internalType": "string",
+          "internalType": "string",
           "name": "",
+          "type": "string"
           "type": "string"
         }
       ],
@@ -488,6 +491,11 @@
           "internalType": "contract TipToken",
           "name": "",
           "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
         }
       ],
       "stateMutability": "view",
@@ -541,6 +549,34 @@
         {
           "internalType": "address",
           "name": "",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "name": "userToTips",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "tipid",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "tipstatus",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address payable",
+          "name": "tipsender",
           "type": "address"
         },
         {
@@ -14838,6 +14874,11 @@
       "SafeMath": [742],
       "TipOff": [1020],
       "TipToken": [1246]
+      "EIP712Base": [93],
+      "EIP712MetaTransaction": [372],
+      "SafeMath": [742],
+      "TipOff": [1020],
+      "TipToken": [1246]
     },
     "id": 1021,
     "license": "MIT",
@@ -14845,6 +14886,7 @@
     "nodes": [
       {
         "id": 744,
+        "literals": ["solidity", "0.8", ".0"],
         "literals": ["solidity", "0.8", ".0"],
         "nodeType": "PragmaDirective",
         "src": "33:22:4"
@@ -14922,9 +14964,11 @@
           }
         ],
         "contractDependencies": [93, 372],
+        "contractDependencies": [93, 372],
         "contractKind": "contract",
         "fullyImplemented": true,
         "id": 1020,
+        "linearizedBaseContracts": [1020, 372, 93],
         "linearizedBaseContracts": [1020, 372, 93],
         "name": "TipOff",
         "nodeType": "ContractDefinition",
@@ -16425,6 +16469,7 @@
               "statements": [
                 {
                   "assignments": [880],
+                  "assignments": [880],
                   "declarations": [
                     {
                       "constant": false,
@@ -16693,6 +16738,7 @@
               "statements": [
                 {
                   "assignments": [909],
+                  "assignments": [909],
                   "declarations": [
                     {
                       "constant": false,
@@ -16865,6 +16911,7 @@
                   "src": "2142:24:4"
                 },
                 {
+                  "assignments": [922],
                   "assignments": [922],
                   "declarations": [
                     {
@@ -17306,6 +17353,7 @@
               "statements": [
                 {
                   "assignments": [952],
+                  "assignments": [952],
                   "declarations": [
                     {
                       "constant": false,
@@ -17693,6 +17741,7 @@
               "statements": [
                 {
                   "assignments": [985],
+                  "assignments": [985],
                   "declarations": [
                     {
                       "constant": false,
@@ -17770,6 +17819,7 @@
                   "src": "2820:37:4"
                 },
                 {
+                  "assignments": [991],
                   "assignments": [991],
                   "declarations": [
                     {
@@ -18289,6 +18339,11 @@
       "SafeMath": [742],
       "TipOff": [1020],
       "TipToken": [1246]
+      "EIP712Base": [93],
+      "EIP712MetaTransaction": [372],
+      "SafeMath": [742],
+      "TipOff": [1020],
+      "TipToken": [1246]
     },
     "id": 1021,
     "license": "MIT",
@@ -18296,6 +18351,7 @@
     "nodes": [
       {
         "id": 744,
+        "literals": ["solidity", "0.8", ".0"],
         "literals": ["solidity", "0.8", ".0"],
         "nodeType": "PragmaDirective",
         "src": "33:22:4"
@@ -18373,9 +18429,11 @@
           }
         ],
         "contractDependencies": [93, 372],
+        "contractDependencies": [93, 372],
         "contractKind": "contract",
         "fullyImplemented": true,
         "id": 1020,
+        "linearizedBaseContracts": [1020, 372, 93],
         "linearizedBaseContracts": [1020, 372, 93],
         "name": "TipOff",
         "nodeType": "ContractDefinition",
@@ -19876,6 +19934,7 @@
               "statements": [
                 {
                   "assignments": [880],
+                  "assignments": [880],
                   "declarations": [
                     {
                       "constant": false,
@@ -20144,6 +20203,7 @@
               "statements": [
                 {
                   "assignments": [909],
+                  "assignments": [909],
                   "declarations": [
                     {
                       "constant": false,
@@ -20316,6 +20376,7 @@
                   "src": "2142:24:4"
                 },
                 {
+                  "assignments": [922],
                   "assignments": [922],
                   "declarations": [
                     {
@@ -20757,6 +20818,7 @@
               "statements": [
                 {
                   "assignments": [952],
+                  "assignments": [952],
                   "declarations": [
                     {
                       "constant": false,
@@ -21144,6 +21206,7 @@
               "statements": [
                 {
                   "assignments": [985],
+                  "assignments": [985],
                   "declarations": [
                     {
                       "constant": false,
@@ -21221,6 +21284,7 @@
                   "src": "2820:37:4"
                 },
                 {
+                  "assignments": [991],
                   "assignments": [991],
                   "declarations": [
                     {
@@ -21809,3 +21873,4 @@
     "version": 1
   }
 }
+
