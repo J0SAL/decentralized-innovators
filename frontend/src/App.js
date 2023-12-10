@@ -442,6 +442,12 @@ const App = () => {
             <Index web3={web3} accounts={accounts} contract={contract} />
           }
         />
+        <Route
+          path="/form"
+          element={
+            <Forms web3={web3} accounts={accounts} contract={contract} />
+          }
+        />
 
         {/* <Route
             path="/nucleo-icons"
