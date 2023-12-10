@@ -15,6 +15,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import axiosInstance from "../../AxiosInstance";
 import { useNavigate } from "react-router-dom";
+import lighthouse from "@lighthouse-web3/sdk";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -66,10 +67,30 @@ export default function Orders() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const form = new FormData();
-    form.append("latitude", localStorage.getItem("latitude"));
-    form.append("longitude", localStorage.getItem("longitude"));
-    form.append("filter", "no");
+    async () => {
+      const form = new FormData();
+      form.append("latitude", localStorage.getItem("latitude"));
+      form.append("longitude", localStorage.getItem("longitude"));
+      form.append("filter", "no");
+      //   const response = (
+      //     await lighthouse.getUploads(process.env.REACT_APP_LIGHTHOUSE_API_KEY)
+      //   ).data.fileList;
+      //   let arr = [];
+      //   for (let i = 0; i < response.length; i++) {
+      //     axios
+      //   .get(`https://gateway.lighthouse.storage/ipfs/${response[i].cid}`, { headers: {} })
+      //   .then((response) => {
+      //     // Assuming the text content is in the 'data' property
+      //     const textContent = response.data;
+
+      //   })
+      //   .catch((error) => {
+      //     console.error("Error fetching data:", error);
+      //   });
+
+      // }();
+    };
+
     // axiosInstance.post("gettips/", form).then((res) => {
     //   console.log(res);
     //   setTips(res.data);
@@ -282,7 +303,6 @@ export default function Orders() {
                       }}
                     >
                       {"Chat"}
-                      
                     </Button>
                   </StyledTableCell>
                 </StyledTableRow>

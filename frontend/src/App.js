@@ -25,7 +25,7 @@ import { AnonAadhaarProvider } from "anon-aadhaar-react";
 import UserOnBoard from "./views/UserOnBoard/UserOnBoard.js";
 import { POLICE_ADDRESS } from "./assets/constants/Constants.js";
 import Dashboard from "./views/Dashboard/Dashboard.js";
-// import Map from "./views/Mao/Map-1.js";
+import Map from "./views/Mao/Map-1.js";
 
 const getWeb3 = async () => {
   let tempWeb3 = undefined;
@@ -469,7 +469,12 @@ const App = () => {
           }} //here check if user registred
         />
 
-        <Route path="/chat" element={<Waku topicAddress={"xyz123"} userAddressProp={accounts[0]} />} />
+        <Route
+          path="/chat"
+          element={
+            <Waku topicAddress={"xyz123"} userAddressProp={accounts[0]} />
+          }
+        />
 
         <Route
           path="/user-dashboard"
@@ -482,6 +487,8 @@ const App = () => {
             />
           }
         />
+
+        <Route path="/crime-hotspot" element={<Map crimeData={crimeData} />} />
 
         {/* <Route
             path="/login-page"
