@@ -21,7 +21,7 @@ const Waku = (props) => {
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
   const [encoder, setEncoder] = useState(null);
-  const topic = "Samayy";
+  const topic = "0x11857ebd4Bd7c15509A1cF23362848e6B89Bd30C";
   const userAddress = "User";
   useEffect(() => {
     console.log("Starting Waku Node...");

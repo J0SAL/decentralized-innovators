@@ -27,6 +27,7 @@ import { AnonAadhaarProvider } from "anon-aadhaar-react";
 import UserOnBoard from "./views/UserOnBoard/UserOnBoard.js";
 import { POLICE_ADDRESS } from "./assets/constants/Constants.js";
 import Dashboard from "./views/Dashboard/Dashboard.js";
+// import { gasless } from "./etherspot/gasless.js";
 // import Map from "./views/Mao/Map-1.js";
 
 const getWeb3 = async () => {
@@ -429,6 +430,7 @@ const App = () => {
     //     }
     //   }
     // })();
+    // gasless(accounts[0]);
   }, [accounts]);
 
   useEffect(() => {
@@ -518,6 +520,7 @@ const App = () => {
           /> */}
 
         <Route path="/mental" element={<Mental />} />
+        <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
         <Route path="/form" element={<Forms />} />
 
