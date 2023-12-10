@@ -469,7 +469,7 @@ const App = () => {
           }} //here check if user registred
         />
 
-        <Route path="/chat" element={<Waku />} />
+        <Route path="/chat" element={<Waku topicAddress={"xyz123"} userAddressProp={accounts[0]} />} />
 
         <Route
           path="/user-dashboard"

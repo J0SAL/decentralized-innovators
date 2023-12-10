@@ -16,13 +16,14 @@ import AttachFile from "@mui/icons-material/AttachFile";
 import MoreVert from "@mui/icons-material/MoreVert";
 import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
 import SendIcon from "@mui/icons-material/Send";
-const Waku = (props) => {
+function Waku ({topicAddress, userAddressProp}){
   const [node, setNode] = useState(null);
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
   const [encoder, setEncoder] = useState(null);
-  const topic = "Samayy";
-  const userAddress = "User";
+  const topic = topicAddress;
+  const userAddress = userAddressProp;
+  console.log("userAddress : ", userAddress);
   useEffect(() => {
     console.log("Starting Waku Node...");
     const startWakuNode = async () => {
