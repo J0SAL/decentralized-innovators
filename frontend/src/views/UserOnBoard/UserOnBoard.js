@@ -94,7 +94,10 @@ function UserOnBoard({ web3, accounts, contract }) {
             }}
           >
             <center>
-              <LogInWithAnonAadhaar />
+              <LogInWithAnonAadhaar
+                nullifierSeed={79517171215162240188220389730247835}
+                fieldsToReveal={["revealGender"]}
+              />
             </center>
           </div>
         </div>
